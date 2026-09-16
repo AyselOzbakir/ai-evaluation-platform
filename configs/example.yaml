@@ -1,0 +1,10 @@
+# Example run config for app.core.config.load_run_config / POST /evaluations/run.
+# Real per-system configs (ata_rag, internship, ...) are added by their owners under configs/.
+system: fake
+dataset_version: fake-v1
+dataset_path: datasets/fake/cases.json
+application_version: local-dev
+evaluators:
+  - fake_exact_match
+thresholds:
+  fake_exact_match: 0.9

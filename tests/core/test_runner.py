@@ -1,0 +1,117 @@
+import json
+
+from app.core.config import RunConfig
+from app.core.registry import Registry
+from app.core.runner import run_experiment
+from tests.core.fakes import CrashingEvaluator, FakeAdapter, FakeEvaluator
+
+
+def _write_dataset(tmp_path, cases: list[dict]) -> str:
+    path = tmp_path / "cases.json"
+    path.write_text(json.dumps(cases), encoding="utf-8")
+    return str(path)
+
+
+def _registry() -> Registry:
+    reg = Registry()
+    reg.register_adapter("fake", FakeAdapter())
+    reg.register_evaluator("fake_exact_match", FakeEvaluator())
+    reg.register_evaluator("crashing_evaluator", CrashingEvaluator())
+    return reg
+
+
+def test_end_to_end_run_produces_experiment_json(tmp_path):
+    dataset_path = _write_dataset(
+        tmp_path,
+        [
+            {"id": "c1", "system": "fake", "input": {"q": "hi"}, "expected_output": {"q": "hi"}},
+            {"id": "c2", "system": "fake", "input": {"q": "bye"}, "expected_output": {"q": "nope"}},
+        ],
+    )
+    config = RunConfig(
+        system="fake",
+        dataset_version="fake-v1",
+        dataset_path=dataset_path,
+        evaluators=["fake_exact_match"],
+    )
+    artifact_dir = tmp_path / "artifacts"
+
+    experiment = run_experiment(
+        config, _registry(), experiment_id="test-exp", persist=False
+    )
+
+    assert experiment.experiment_id == "test-exp"
+    assert len(experiment.case_results) == 2
+    assert experiment.aggregate_metrics["fake_exact_match_avg_score"] == 0.5
+    assert experiment.aggregate_metrics["fake_exact_match_pass_rate"] == 0.5
+    assert not artifact_dir.exists()  # persist=False must not write anything
+
+
+def test_persist_writes_json_file(tmp_path, monkeypatch):
+    monkeypatch.setenv("EXPERIMENT_ARTIFACT_DIR", str(tmp_path / "artifacts"))
+    dataset_path = _write_dataset(
+        tmp_path,
+        [{"id": "c1", "system": "fake", "input": {"q": "hi"}, "expected_output": {"q": "hi"}}],
+    )
+    config = RunConfig(
+        system="fake", dataset_version="fake-v1", dataset_path=dataset_path,
+        evaluators=["fake_exact_match"],
+    )
+
+    experiment = run_experiment(config, _registry(), experiment_id="persisted-exp")
+
+    saved_path = tmp_path / "artifacts" / "persisted-exp.json"
+    assert saved_path.exists()
+    saved = json.loads(saved_path.read_text(encoding="utf-8"))
+    assert saved["experiment_id"] == experiment.experiment_id
+
+
+def test_adapter_failure_is_captured_not_raised(tmp_path):
+    dataset_path = _write_dataset(
+        tmp_path, [{"id": "boom-1", "system": "fake", "input": {"q": "hi"}}]
+    )
+    config = RunConfig(
+        system="fake", dataset_version="fake-v1", dataset_path=dataset_path, evaluators=[]
+    )
+
+    experiment = run_experiment(config, _registry(), experiment_id="boom-exp", persist=False)
+
+    assert len(experiment.case_results) == 1
+    assert experiment.case_results[0].error is not None
+    assert not experiment.passed
+
+
+def test_evaluator_crash_is_captured_per_case(tmp_path):
+    dataset_path = _write_dataset(
+        tmp_path, [{"id": "c1", "system": "fake", "input": {"q": "hi"}}]
+    )
+    config = RunConfig(
+        system="fake",
+        dataset_version="fake-v1",
+        dataset_path=dataset_path,
+        evaluators=["crashing_evaluator"],
+    )
+
+    experiment = run_experiment(config, _registry(), experiment_id="crash-exp", persist=False)
+
+    assert experiment.case_results[0].error is None
+    assert experiment.case_results[0].evaluations[0].passed is False
+    assert "crashed" in experiment.case_results[0].evaluations[0].reason
+
+
+def test_threshold_failure_marks_experiment_failed(tmp_path):
+    dataset_path = _write_dataset(
+        tmp_path,
+        [{"id": "c1", "system": "fake", "input": {"q": "hi"}, "expected_output": {"q": "nope"}}],
+    )
+    config = RunConfig(
+        system="fake",
+        dataset_version="fake-v1",
+        dataset_path=dataset_path,
+        evaluators=["fake_exact_match"],
+        thresholds={"fake_exact_match": 0.9},
+    )
+
+    experiment = run_experiment(config, _registry(), experiment_id="threshold-exp", persist=False)
+
+    assert not experiment.passed
