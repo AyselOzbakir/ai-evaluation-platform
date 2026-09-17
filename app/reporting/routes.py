@@ -8,6 +8,7 @@ from app.experiments.comparison import (
     ExperimentComparison,
     compare_experiments,
 )
+from app.experiments.rules import load_metric_rules
 
 router = APIRouter()
 
@@ -15,6 +16,11 @@ DASHBOARD_FILE = (
     Path(__file__).resolve().parents[1]
     / "static"
     / "dashboard.html"
+)
+REGRESSION_RULES_FILE = (
+    Path(__file__).resolve().parents[2]
+    / "configs"
+    / "regression_rules.yaml"
 )
 
 
@@ -41,9 +47,18 @@ def compare_dashboard_experiments(
         ) from exc
 
     try:
+        rules = load_metric_rules(REGRESSION_RULES_FILE)
+    except ValueError as exc:
+        raise HTTPException(
+            status_code=500,
+            detail=str(exc),
+        ) from exc
+
+    try:
         return compare_experiments(
             baseline,
             candidate,
+            rules,
         )
     except ValueError as exc:
         raise HTTPException(
