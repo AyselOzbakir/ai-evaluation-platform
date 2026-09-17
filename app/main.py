@@ -3,9 +3,12 @@
 from fastapi import FastAPI
 
 from app.api.routes import router
+from app.reporting.routes import router as reporting_router
 
 app = FastAPI(title="AI Evaluation Platform")
+
 app.include_router(router)
+app.include_router(reporting_router)
 
 # Real adapters/evaluators are registered here as each system's module lands, e.g.:
 #   from app.systems.ata_rag.adapter import ATARagAdapter

@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Evaluation Dashboard</title>
+
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #f5f7fa;
+        margin: 0;
+        color: #1f2937;
+      }
+
+      .container {
+        max-width: 1100px;
+        margin: 40px auto;
+        padding: 0 20px;
+      }
+
+      .card {
+        background: white;
+        border-radius: 12px;
+        padding: 24px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      }
+
+      h1 {
+        margin-bottom: 5px;
+      }
+
+      .subtitle {
+        color: #6b7280;
+        margin-bottom: 30px;
+      }
+
+      .selectors {
+        display: grid;
+        grid-template-columns: 1fr 1fr auto;
+        gap: 12px;
+      }
+
+      select,
+      button {
+        padding: 10px;
+        border-radius: 6px;
+        border: 1px solid #d1d5db;
+      }
+
+      button {
+        cursor: pointer;
+        background: #111827;
+        color: white;
+        border: none;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 15px;
+      }
+
+      th,
+      td {
+        text-align: left;
+        padding: 12px;
+        border-bottom: 1px solid #e5e7eb;
+      }
+
+      .pass {
+        color: #15803d;
+        font-weight: bold;
+      }
+
+      .fail {
+        color: #b91c1c;
+        font-weight: bold;
+      }
+
+      .improved {
+        color: #15803d;
+      }
+
+      .regressed {
+        color: #b91c1c;
+      }
+
+      .unchanged {
+        color: #6b7280;
+      }
+
+      ul {
+        padding-left: 20px;
+      }
+
+      #emptyMessage {
+        color: #6b7280;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <h1>AI Evaluation Platform</h1>
+
+      <div class="subtitle">Experiment Comparison & Regression Dashboard</div>
+
+      <div class="card">
+        <h2>Compare Experiments</h2>
+
+        <div class="selectors">
+          <select id="baseline">
+            <option>Loading...</option>
+          </select>
+
+          <select id="candidate">
+            <option>Loading...</option>
+          </select>
+
+          <button onclick="compareExperiments()">Compare</button>
+        </div>
+
+        <p id="emptyMessage"></p>
+      </div>
+
+      <div id="results" style="display: none">
+        <div class="card">
+          <h2>Result</h2>
+
+          <p>
+            System:
+            <strong id="system"></strong>
+          </p>
+
+          <p>
+            Overall:
+            <span id="overall"></span>
+          </p>
+        </div>
+
+        <div class="card">
+          <h2>Metrics</h2>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Metric</th>
+                <th>Baseline</th>
+                <th>Candidate</th>
+                <th>Delta</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+
+            <tbody id="metrics"></tbody>
+          </table>
+        </div>
+
+        <div class="card">
+          <h2>Newly Failing Cases</h2>
+
+          <ul id="newFailures"></ul>
+        </div>
+
+        <div class="card">
+          <h2>Resolved Cases</h2>
+
+          <ul id="resolvedCases"></ul>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      async function loadExperiments() {
+        const response = await fetch("/experiments");
+        const experiments = await response.json();
+
+        const baseline = document.getElementById("baseline");
+        const candidate = document.getElementById("candidate");
+
+        baseline.innerHTML = "";
+        candidate.innerHTML = "";
+
+        if (experiments.length < 2) {
+          document.getElementById("emptyMessage").innerText =
+            "At least two experiments are required for comparison.";
+        }
+
+        experiments.forEach((id) => {
+          const option1 = document.createElement("option");
+          option1.value = id;
+          option1.textContent = id;
+
+          baseline.appendChild(option1);
+
+          const option2 = document.createElement("option");
+          option2.value = id;
+          option2.textContent = id;
+
+          candidate.appendChild(option2);
+        });
+
+        if (experiments.length >= 2) {
+          candidate.selectedIndex = 1;
+        }
+      }
+
+      async function compareExperiments() {
+        const baseline = document.getElementById("baseline").value;
+
+        const candidate = document.getElementById("candidate").value;
+
+        const response = await fetch(
+          `/dashboard/compare?baseline_id=${encodeURIComponent(baseline)}&candidate_id=${encodeURIComponent(candidate)}`,
+        );
+
+        if (!response.ok) {
+          const error = await response.json();
+
+          alert(error.detail || "Comparison failed.");
+
+          return;
+        }
+
+        const data = await response.json();
+
+        document.getElementById("results").style.display = "block";
+
+        document.getElementById("system").innerText = data.system;
+
+        const overall = document.getElementById("overall");
+
+        overall.innerText = data.passed ? "PASS" : "FAIL";
+
+        overall.className = data.passed ? "pass" : "fail";
+
+        const metrics = document.getElementById("metrics");
+
+        metrics.innerHTML = "";
+
+        data.metrics.forEach((metric) => {
+          const row = document.createElement("tr");
+
+          row.innerHTML = `
+            <td>${metric.metric}</td>
+            <td>${metric.baseline.toFixed(4)}</td>
+            <td>${metric.candidate.toFixed(4)}</td>
+            <td>${metric.delta.toFixed(4)}</td>
+            <td class="${metric.status}">
+                ${metric.status}
+            </td>
+        `;
+
+          metrics.appendChild(row);
+        });
+
+        renderList(
+          "newFailures",
+          data.newly_failed_cases,
+          "No newly failing cases.",
+        );
+
+        renderList("resolvedCases", data.resolved_cases, "No resolved cases.");
+      }
+
+      function renderList(elementId, values, emptyText) {
+        const element = document.getElementById(elementId);
+
+        element.innerHTML = "";
+
+        if (values.length === 0) {
+          const item = document.createElement("li");
+
+          item.innerText = emptyText;
+
+          element.appendChild(item);
+
+          return;
+        }
+
+        values.forEach((value) => {
+          const item = document.createElement("li");
+
+          item.innerText = value;
+
+          element.appendChild(item);
+        });
+      }
+
+      loadExperiments();
+    </script>
+  </body>
+</html>
