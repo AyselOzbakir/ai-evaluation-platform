@@ -151,6 +151,8 @@
                 <th>Candidate</th>
                 <th>Delta</th>
                 <th>Status</th>
+                <th>Gate</th>
+                <th>Reason</th>
               </tr>
             </thead>
 
@@ -243,15 +245,36 @@
         data.metrics.forEach((metric) => {
           const row = document.createElement("tr");
 
-          row.innerHTML = `
-            <td>${metric.metric}</td>
-            <td>${metric.baseline.toFixed(4)}</td>
-            <td>${metric.candidate.toFixed(4)}</td>
-            <td>${metric.delta.toFixed(4)}</td>
-            <td class="${metric.status}">
-                ${metric.status}
-            </td>
-        `;
+          const values = [
+            metric.metric,
+            metric.baseline.toFixed(4),
+            metric.candidate.toFixed(4),
+            metric.delta.toFixed(4),
+            metric.status,
+          ];
+
+          values.forEach((value) => {
+            const cell = document.createElement("td");
+
+            cell.innerText = value;
+
+            if (value === metric.status) {
+              cell.className = metric.status;
+            }
+
+            row.appendChild(cell);
+          });
+
+          const gate = document.createElement("td");
+
+          gate.innerText = metric.passed ? "PASS" : "FAIL";
+          gate.className = metric.passed ? "pass" : "fail";
+          row.appendChild(gate);
+
+          const reason = document.createElement("td");
+
+          reason.innerText = metric.reason || "No reason provided.";
+          row.appendChild(reason);
 
           metrics.appendChild(row);
         });
