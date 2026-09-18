@@ -1,0 +1,20 @@
+metrics:
+  correctness_avg_score:
+    direction: higher
+    minimum: 0.90
+    max_regression: 0.02
+
+  groundedness_avg_score:
+    direction: higher
+    minimum: 0.90
+    max_regression: 0.02
+
+  citation_accuracy_avg_score:
+    direction: higher
+    minimum: 0.90
+    max_regression: 0.02
+
+  case_error_rate:
+    direction: lower
+    maximum: 0.05
+    max_regression: 0.02
