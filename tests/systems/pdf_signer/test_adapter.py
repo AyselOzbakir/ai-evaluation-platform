@@ -39,6 +39,8 @@ def test_sys_executable_is_the_python_fallback(monkeypatch):
 
 
 def test_detect_builds_command_and_parses_json(tmp_path, monkeypatch):
+    monkeypatch.delenv("PDF_SIGNER_PYTHON", raising=False)
+    monkeypatch.delenv("PDF_SIGNER_BACKEND_PATH", raising=False)
     backend = tmp_path / "pdf_backend.py"
     backend.write_text("", encoding="utf-8")
     completed = subprocess.CompletedProcess(
@@ -76,6 +78,8 @@ def test_detect_builds_command_and_parses_json(tmp_path, monkeypatch):
 
 
 def test_detect_ignores_noisy_stdout_before_json(tmp_path, monkeypatch):
+    monkeypatch.delenv("PDF_SIGNER_PYTHON", raising=False)
+    monkeypatch.delenv("PDF_SIGNER_BACKEND_PATH", raising=False)
     backend = tmp_path / "pdf_backend.py"
     backend.write_text("", encoding="utf-8")
     completed = subprocess.CompletedProcess(
@@ -102,6 +106,8 @@ def test_detect_ignores_noisy_stdout_before_json(tmp_path, monkeypatch):
 
 
 def test_detect_without_json_raises_runtime_error(tmp_path, monkeypatch):
+    monkeypatch.delenv("PDF_SIGNER_PYTHON", raising=False)
+    monkeypatch.delenv("PDF_SIGNER_BACKEND_PATH", raising=False)
     backend = tmp_path / "pdf_backend.py"
     backend.write_text("", encoding="utf-8")
     completed = subprocess.CompletedProcess(
@@ -119,6 +125,8 @@ def test_detect_without_json_raises_runtime_error(tmp_path, monkeypatch):
 
 
 def test_place_builds_command_and_parses_output_path(tmp_path, monkeypatch):
+    monkeypatch.delenv("PDF_SIGNER_PYTHON", raising=False)
+    monkeypatch.delenv("PDF_SIGNER_BACKEND_PATH", raising=False)
     backend = tmp_path / "pdf_backend.py"
     backend.write_text("", encoding="utf-8")
     output_path = tmp_path / "signed.pdf"
@@ -156,6 +164,8 @@ def test_place_builds_command_and_parses_output_path(tmp_path, monkeypatch):
 
 
 def test_place_uses_final_non_empty_stdout_line(tmp_path, monkeypatch):
+    monkeypatch.delenv("PDF_SIGNER_PYTHON", raising=False)
+    monkeypatch.delenv("PDF_SIGNER_BACKEND_PATH", raising=False)
     backend = tmp_path / "pdf_backend.py"
     backend.write_text("", encoding="utf-8")
     completed = subprocess.CompletedProcess(
@@ -195,6 +205,8 @@ def test_missing_backend_configuration_is_rejected(monkeypatch):
 
 
 def test_subprocess_failure_raises_concise_runtime_error(tmp_path, monkeypatch):
+    monkeypatch.delenv("PDF_SIGNER_PYTHON", raising=False)
+    monkeypatch.delenv("PDF_SIGNER_BACKEND_PATH", raising=False)
     backend = tmp_path / "pdf_backend.py"
     backend.write_text("", encoding="utf-8")
     completed = subprocess.CompletedProcess(
