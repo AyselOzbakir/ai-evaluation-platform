@@ -98,6 +98,10 @@
       #emptyMessage {
         color: #6b7280;
       }
+
+      #historyEmptyMessage {
+        color: #6b7280;
+      }
     </style>
   </head>
 
@@ -123,6 +127,27 @@
         </div>
 
         <p id="emptyMessage"></p>
+      </div>
+
+      <div class="card">
+        <h2>Experiment History</h2>
+
+        <p id="historyEmptyMessage"></p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Experiment ID</th>
+              <th>System</th>
+              <th>Dataset Version</th>
+              <th>Application Version</th>
+              <th>Started At</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+
+          <tbody id="history"></tbody>
+        </table>
       </div>
 
       <div id="results" style="display: none">
@@ -176,37 +201,149 @@
 
     <script>
       async function loadExperiments() {
-        const response = await fetch("/experiments");
-        const experiments = await response.json();
+        const historyEmptyMessage = document.getElementById(
+          "historyEmptyMessage",
+        );
+        const history = document.getElementById("history");
+        history.replaceChildren();
 
-        const baseline = document.getElementById("baseline");
+        let experiments;
+
+        try {
+          const response = await fetch("/experiments");
+
+          if (!response.ok) {
+            throw new Error("Unable to load experiments.");
+          }
+
+          experiments = await response.json();
+        } catch (error) {
+          historyEmptyMessage.innerText =
+            "Experiment history is currently unavailable.";
+          populateExperimentSelectors([]);
+          return;
+        }
+
         const candidate = document.getElementById("candidate");
 
-        baseline.innerHTML = "";
-        candidate.innerHTML = "";
+        populateExperimentSelectors(experiments);
 
         if (experiments.length < 2) {
           document.getElementById("emptyMessage").innerText =
             "At least two experiments are required for comparison.";
         }
 
-        experiments.forEach((id) => {
-          const option1 = document.createElement("option");
-          option1.value = id;
-          option1.textContent = id;
-
-          baseline.appendChild(option1);
-
-          const option2 = document.createElement("option");
-          option2.value = id;
-          option2.textContent = id;
-
-          candidate.appendChild(option2);
-        });
-
         if (experiments.length >= 2) {
           candidate.selectedIndex = 1;
         }
+
+        if (experiments.length === 0) {
+          historyEmptyMessage.innerText = "No experiments available yet.";
+          return;
+        }
+
+        const details = await Promise.allSettled(
+          experiments.map(async (experimentId) => {
+            const response = await fetch(
+              `/experiments/${encodeURIComponent(experimentId)}`,
+            );
+
+            if (!response.ok) {
+              throw new Error(`Unable to load ${experimentId}.`);
+            }
+
+            return response.json();
+          }),
+        );
+
+        const successfulDetails = [];
+
+        details.forEach((detail, index) => {
+          if (detail.status === "fulfilled") {
+            successfulDetails.push(detail.value);
+            return;
+          }
+
+          renderHistoryUnavailable(history, experiments[index]);
+        });
+
+        successfulDetails.sort((left, right) => {
+          const rightTime = Date.parse(right.started_at || "");
+          const leftTime = Date.parse(left.started_at || "");
+
+          if (Number.isNaN(leftTime)) return 1;
+          if (Number.isNaN(rightTime)) return -1;
+
+          return rightTime - leftTime;
+        });
+
+        successfulDetails.forEach((experiment) => {
+          renderHistoryExperiment(history, experiment);
+        });
+
+        if (successfulDetails.length === 0) {
+          historyEmptyMessage.innerText =
+            "No experiment details are available.";
+        }
+      }
+
+      function populateExperimentSelectors(experiments) {
+        const baseline = document.getElementById("baseline");
+        const candidate = document.getElementById("candidate");
+
+        baseline.replaceChildren();
+        candidate.replaceChildren();
+
+        experiments.forEach((id) => {
+          const baselineOption = document.createElement("option");
+          baselineOption.value = id;
+          baselineOption.textContent = id;
+          baseline.appendChild(baselineOption);
+
+          const candidateOption = document.createElement("option");
+          candidateOption.value = id;
+          candidateOption.textContent = id;
+          candidate.appendChild(candidateOption);
+        });
+      }
+
+      function renderHistoryExperiment(history, experiment) {
+        const row = document.createElement("tr");
+
+        [
+          experiment.experiment_id,
+          experiment.system,
+          experiment.dataset_version,
+          experiment.application_version,
+          experiment.started_at,
+        ].forEach((value) => {
+          const cell = document.createElement("td");
+          cell.textContent = value || "-";
+          row.appendChild(cell);
+        });
+
+        const status = document.createElement("td");
+        status.textContent = experiment.passed ? "PASS" : "FAIL";
+        status.className = experiment.passed ? "pass" : "fail";
+        row.appendChild(status);
+
+        history.appendChild(row);
+      }
+
+      function renderHistoryUnavailable(history, experimentId) {
+        const row = document.createElement("tr");
+        const values = [experimentId, "-", "-", "-", "-"];
+
+        values.forEach((value) => {
+          const cell = document.createElement("td");
+          cell.textContent = value;
+          row.appendChild(cell);
+        });
+
+        const status = document.createElement("td");
+        status.textContent = "Unavailable";
+        row.appendChild(status);
+        history.appendChild(row);
       }
 
       async function compareExperiments() {
