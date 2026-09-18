@@ -6,112 +6,473 @@
     <title>AI Evaluation Dashboard</title>
 
     <style>
+      :root {
+        --canvas: #191614;
+        --surface: #24201d;
+        --surface-raised: #2b2622;
+        --surface-soft: #201c19;
+        --border: #403832;
+        --border-soft: #332d28;
+        --text: #f5efe7;
+        --text-muted: #b4aaa0;
+        --text-faint: #81766d;
+        --accent: #df8a57;
+        --accent-soft: rgba(223, 138, 87, 0.14);
+        --green: #8fc7a2;
+        --green-soft: rgba(143, 199, 162, 0.13);
+        --red: #e29a8c;
+        --red-soft: rgba(226, 154, 140, 0.13);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
       body {
-        font-family: Arial, sans-serif;
-        background: #f5f7fa;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background:
+          radial-gradient(
+            ellipse 70% 58% at 96% -8%,
+            rgba(223, 138, 87, 0.1),
+            rgba(112, 66, 41, 0.045) 38%,
+            transparent 72%
+          ),
+          radial-gradient(
+            ellipse 48% 38% at 76% 11%,
+            rgba(166, 91, 53, 0.045),
+            transparent 76%
+          ),
+          var(--canvas);
         margin: 0;
-        color: #1f2937;
+        color: var(--text);
+        line-height: 1.5;
+        min-height: 100vh;
+        overflow-x: hidden;
+      }
+
+      body::before {
+        background: radial-gradient(
+          ellipse at center,
+          rgba(223, 138, 87, 0.08),
+          rgba(111, 61, 37, 0.025) 42%,
+          transparent 72%
+        );
+        content: "";
+        filter: blur(30px);
+        height: 38rem;
+        opacity: 0.72;
+        pointer-events: none;
+        position: absolute;
+        right: -10rem;
+        top: -16rem;
+        width: 46rem;
+        z-index: 0;
+      }
+
+      body::after {
+        background: radial-gradient(
+          ellipse at center,
+          rgba(223, 138, 87, 0.035),
+          transparent 70%
+        );
+        content: "";
+        filter: blur(40px);
+        height: 28rem;
+        opacity: 0.7;
+        pointer-events: none;
+        position: absolute;
+        right: 12%;
+        top: 22rem;
+        width: 34rem;
+        z-index: 0;
       }
 
       .container {
-        max-width: 1100px;
-        margin: 40px auto;
-        padding: 0 20px;
+        margin: 0 auto;
+        max-width: 1240px;
+        padding: 56px 32px 80px;
+        position: relative;
       }
 
       .card {
-        background: white;
-        border-radius: 12px;
-        padding: 24px;
-        margin-bottom: 20px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        background: var(--surface);
+        border: 1px solid var(--border-soft);
+        border-radius: 14px;
+        margin-bottom: 22px;
+        padding: 28px;
+      }
+
+      .hero {
+        align-items: flex-start;
+        display: flex;
+        gap: 36px;
+        justify-content: space-between;
+        margin-bottom: 42px;
+        max-width: none;
+      }
+
+      .hero-copy {
+        max-width: 760px;
+      }
+
+      .hero-mark {
+        flex: 0 0 auto;
+        padding-top: 8px;
+        text-align: center;
+        width: 132px;
+      }
+
+      .hero-mark img {
+        display: block;
+        width: 110px;
+        height: 110px;
+        margin: 0 auto;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 1px solid rgba(232, 139, 85, 0.35);
+        box-shadow: 0 0 28px rgba(232, 139, 85, 0.14);
+      }
+
+      .eyebrow {
+        color: var(--accent);
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        margin: 0 0 16px;
+        text-transform: uppercase;
+      }
+
+      h1,
+      h2 {
+        font-family: Georgia, "Times New Roman", serif;
+        font-weight: 400;
+        letter-spacing: -0.02em;
       }
 
       h1 {
-        margin-bottom: 5px;
+        font-size: clamp(2.8rem, 6vw, 5.2rem);
+        line-height: 1;
+        margin: 0 0 18px;
+      }
+
+      h2 {
+        font-size: 1.45rem;
+        margin: 0 0 20px;
       }
 
       .subtitle {
-        color: #6b7280;
-        margin-bottom: 30px;
+        color: var(--text-muted);
+        font-size: 1.05rem;
+        margin: 0;
+        max-width: 600px;
+      }
+
+      .section-kicker {
+        color: var(--text-faint);
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        margin: 0 0 8px;
+        text-transform: uppercase;
+      }
+
+      .summary-grid {
+        display: grid;
+        gap: 12px;
+        grid-template-columns: repeat(4, 1fr);
+        margin-bottom: 22px;
+      }
+
+      .summary-card {
+        background: var(--surface-soft);
+        border: 1px solid var(--border-soft);
+        border-radius: 12px;
+        min-height: 116px;
+        padding: 20px;
+      }
+
+      .summary-label {
+        color: var(--text-muted);
+        font-size: 0.78rem;
+        letter-spacing: 0.04em;
+      }
+
+      .summary-value {
+        color: var(--text);
+        display: block;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 2rem;
+        line-height: 1.1;
+        margin-top: 12px;
+      }
+
+      .summary-value.accent {
+        color: var(--accent);
+      }
+
+      .summary-value.pass-text {
+        color: var(--green);
+      }
+
+      .summary-value.fail-text {
+        color: var(--red);
       }
 
       .selectors {
         display: grid;
-        grid-template-columns: 1fr 1fr auto;
+        grid-template-columns: 1fr 1fr 140px;
         gap: 12px;
       }
 
       select,
       button {
-        padding: 10px;
-        border-radius: 6px;
-        border: 1px solid #d1d5db;
+        background: var(--surface-raised);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        color: var(--text);
+        font: inherit;
+        min-height: 46px;
+        padding: 10px 14px;
       }
 
       button {
         cursor: pointer;
-        background: #111827;
-        color: white;
-        border: none;
+        background: var(--accent);
+        border-color: var(--accent);
+        color: #241812;
+        font-weight: 700;
+        transition:
+          background 160ms ease,
+          border-color 160ms ease;
+      }
+
+      button:hover {
+        background: #eda06d;
+        border-color: #eda06d;
+      }
+
+      select:focus,
+      button:focus-visible {
+        border-color: var(--accent);
+        outline: 2px solid rgba(223, 138, 87, 0.3);
+        outline-offset: 2px;
+      }
+
+      .table-wrap {
+        overflow-x: auto;
       }
 
       table {
-        width: 100%;
         border-collapse: collapse;
-        margin-top: 15px;
+        min-width: 720px;
+        width: 100%;
       }
 
       th,
       td {
         text-align: left;
-        padding: 12px;
-        border-bottom: 1px solid #e5e7eb;
+        border-bottom: 1px solid var(--border-soft);
+        padding: 15px 14px;
+        white-space: nowrap;
+      }
+
+      th {
+        color: var(--text-faint);
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+
+      td {
+        color: var(--text-muted);
+        font-size: 0.9rem;
+      }
+
+      tbody tr:last-child td {
+        border-bottom: 0;
+      }
+
+      tbody tr:hover {
+        background: rgba(255, 255, 255, 0.025);
       }
 
       .pass {
-        color: #15803d;
-        font-weight: bold;
+        background: var(--green-soft);
+        color: var(--green);
       }
 
       .fail {
-        color: #b91c1c;
-        font-weight: bold;
+        background: var(--red-soft);
+        color: var(--red);
+      }
+
+      .status-pill {
+        border-radius: 999px;
+        display: inline-flex;
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        padding: 5px 9px;
+        text-transform: uppercase;
       }
 
       .improved {
-        color: #15803d;
+        background: var(--green-soft);
+        color: var(--green);
       }
 
       .regressed {
-        color: #b91c1c;
+        background: var(--red-soft);
+        color: var(--red);
       }
 
       .unchanged {
-        color: #6b7280;
+        background: rgba(180, 170, 160, 0.1);
+        color: var(--text-muted);
       }
 
       ul {
+        color: var(--text-muted);
+        margin: 0;
         padding-left: 20px;
       }
 
       #emptyMessage {
-        color: #6b7280;
+        color: var(--text-muted);
+        margin: 14px 0 0;
       }
 
       #historyEmptyMessage {
-        color: #6b7280;
+        color: var(--text-muted);
+        margin: -6px 0 12px;
+      }
+
+      .result-summary {
+        align-items: center;
+        display: flex;
+        gap: 14px;
+        justify-content: space-between;
+      }
+
+      .result-summary p {
+        color: var(--text-muted);
+        margin: 0;
+      }
+
+      .result-summary strong {
+        color: var(--text);
+      }
+
+      .result-summary .overall-block {
+        align-items: center;
+        display: flex;
+        gap: 12px;
+      }
+
+      @media (max-width: 760px) {
+        .container {
+          padding: 36px 18px 56px;
+        }
+
+        .card {
+          padding: 20px;
+        }
+
+        .summary-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .hero {
+          gap: 24px;
+        }
+
+        .hero-mark {
+          width: 96px;
+        }
+
+        .hero-mark img {
+          height: 84px;
+          width: 84px;
+        }
+
+        .selectors {
+          grid-template-columns: 1fr;
+        }
+
+        .result-summary {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+      }
+
+      @media (max-width: 440px) {
+        .summary-grid {
+          grid-template-columns: 1fr;
+        }
+
+        h1 {
+          font-size: 3rem;
+        }
+
+        .hero {
+          display: block;
+        }
+
+        .hero-mark {
+          margin-top: 26px;
+          text-align: left;
+          width: auto;
+        }
+
+        .hero-mark img {
+          margin-left: 0;
+        }
       }
     </style>
   </head>
 
   <body>
     <div class="container">
-      <h1>AI Evaluation Platform</h1>
+      <header class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Evaluation workspace</p>
+          <h1>AI Evaluation Platform</h1>
+          <p class="subtitle">
+            A clear view of experiment quality, regression risk, and the details
+            behind every decision.
+          </p>
+        </div>
 
-      <div class="subtitle">Experiment Comparison & Regression Dashboard</div>
+        <figure class="hero-mark">
+          <img src="/static/ata-logo.jpeg" alt="ATA logo" />
+        </figure>
+      </header>
+
+      <section class="summary-grid" aria-label="Evaluation summary">
+        <div class="summary-card">
+          <span class="summary-label">Total Experiments</span>
+          <strong class="summary-value" id="totalExperiments">—</strong>
+        </div>
+
+        <div class="summary-card">
+          <span class="summary-label">Selected Candidate</span>
+          <strong class="summary-value accent" id="candidateStatus">—</strong>
+        </div>
+
+        <div class="summary-card">
+          <span class="summary-label">Regressed Metrics</span>
+          <strong class="summary-value" id="regressedMetrics">—</strong>
+        </div>
+
+        <div class="summary-card">
+          <span class="summary-label">Newly Failing Cases</span>
+          <strong class="summary-value" id="newlyFailingCount">—</strong>
+        </div>
+      </section>
 
       <div class="card">
+        <p class="section-kicker">Regression review</p>
         <h2>Compare Experiments</h2>
 
         <div class="selectors">
@@ -130,68 +491,78 @@
       </div>
 
       <div class="card">
+        <p class="section-kicker">Run archive</p>
         <h2>Experiment History</h2>
 
         <p id="historyEmptyMessage"></p>
 
-        <table>
-          <thead>
-            <tr>
-              <th>Experiment ID</th>
-              <th>System</th>
-              <th>Dataset Version</th>
-              <th>Application Version</th>
-              <th>Started At</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-
-          <tbody id="history"></tbody>
-        </table>
-      </div>
-
-      <div id="results" style="display: none">
-        <div class="card">
-          <h2>Result</h2>
-
-          <p>
-            System:
-            <strong id="system"></strong>
-          </p>
-
-          <p>
-            Overall:
-            <span id="overall"></span>
-          </p>
-        </div>
-
-        <div class="card">
-          <h2>Metrics</h2>
-
+        <div class="table-wrap">
           <table>
             <thead>
               <tr>
-                <th>Metric</th>
-                <th>Baseline</th>
-                <th>Candidate</th>
-                <th>Delta</th>
+                <th>Experiment ID</th>
+                <th>System</th>
+                <th>Dataset Version</th>
+                <th>Application Version</th>
+                <th>Started At</th>
                 <th>Status</th>
-                <th>Gate</th>
-                <th>Reason</th>
               </tr>
             </thead>
 
-            <tbody id="metrics"></tbody>
+            <tbody id="history"></tbody>
           </table>
+        </div>
+      </div>
+
+      <div id="results" style="display: none">
+        <div class="card result-summary">
+          <h2>Result</h2>
+
+          <div class="overall-block">
+            <p>
+              System:
+              <strong id="system"></strong>
+            </p>
+
+            <p>
+              Overall:
+              <span id="overall"></span>
+            </p>
+          </div>
         </div>
 
         <div class="card">
+          <p class="section-kicker">Signal detail</p>
+          <h2>Metrics</h2>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Metric</th>
+                  <th>Baseline</th>
+                  <th>Candidate</th>
+                  <th>Delta</th>
+                  <th>Status</th>
+                  <th>Gate</th>
+                  <th>Reason</th>
+                </tr>
+              </thead>
+
+              <tbody id="metrics"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="card">
+          <p class="section-kicker">Case review</p>
           <h2>Newly Failing Cases</h2>
 
           <ul id="newFailures"></ul>
         </div>
 
         <div class="card">
+          <p class="section-kicker">Case review</p>
           <h2>Resolved Cases</h2>
 
           <ul id="resolvedCases"></ul>
@@ -217,6 +588,8 @@
           }
 
           experiments = await response.json();
+          document.getElementById("totalExperiments").textContent =
+            experiments.length;
         } catch (error) {
           historyEmptyMessage.innerText =
             "Experiment history is currently unavailable.";
@@ -323,8 +696,12 @@
         });
 
         const status = document.createElement("td");
-        status.textContent = experiment.passed ? "PASS" : "FAIL";
-        status.className = experiment.passed ? "pass" : "fail";
+        const statusBadge = document.createElement("span");
+        statusBadge.textContent = experiment.passed ? "PASS" : "FAIL";
+        statusBadge.className = `status-pill ${
+          experiment.passed ? "pass" : "fail"
+        }`;
+        status.appendChild(statusBadge);
         row.appendChild(status);
 
         history.appendChild(row);
@@ -372,8 +749,20 @@
         const overall = document.getElementById("overall");
 
         overall.innerText = data.passed ? "PASS" : "FAIL";
+        overall.className = `status-pill ${data.passed ? "pass" : "fail"}`;
 
-        overall.className = data.passed ? "pass" : "fail";
+        const regressedCount = data.metrics.filter(
+          (metric) => metric.status === "regressed",
+        ).length;
+        const candidateStatus = document.getElementById("candidateStatus");
+
+        candidateStatus.innerText = data.passed ? "PASS" : "FAIL";
+        candidateStatus.className = `summary-value ${
+          data.passed ? "pass-text" : "fail-text"
+        }`;
+        document.getElementById("regressedMetrics").innerText = regressedCount;
+        document.getElementById("newlyFailingCount").innerText =
+          data.newly_failed_cases.length;
 
         const metrics = document.getElementById("metrics");
 
@@ -393,10 +782,13 @@
           values.forEach((value) => {
             const cell = document.createElement("td");
 
-            cell.innerText = value;
-
             if (value === metric.status) {
-              cell.className = metric.status;
+              const statusBadge = document.createElement("span");
+              statusBadge.innerText = value;
+              statusBadge.className = `status-pill ${metric.status}`;
+              cell.appendChild(statusBadge);
+            } else {
+              cell.innerText = value;
             }
 
             row.appendChild(cell);
@@ -404,8 +796,12 @@
 
           const gate = document.createElement("td");
 
-          gate.innerText = metric.passed ? "PASS" : "FAIL";
-          gate.className = metric.passed ? "pass" : "fail";
+          const gateBadge = document.createElement("span");
+          gateBadge.innerText = metric.passed ? "PASS" : "FAIL";
+          gateBadge.className = `status-pill ${
+            metric.passed ? "pass" : "fail"
+          }`;
+          gate.appendChild(gateBadge);
           row.appendChild(gate);
 
           const reason = document.createElement("td");
