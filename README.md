@@ -65,6 +65,77 @@ configs/          YAML run configs (see configs/example.yaml)
 `GET /health`, `GET /systems`, `POST /evaluations/run`, `GET /evaluations/{id}`,
 `GET /experiments`, `GET /experiments/{id}`.
 
+## Experiment Reporting
+
+Person 5's comparison layer compares a baseline experiment with a candidate experiment. It reports
+metrics as improved, regressed, or unchanged, identifies newly failing cases and resolved cases,
+and applies configurable regression gates.
+
+Regression rules are defined in `configs/regression_rules.yaml` and loaded by the reporting layer:
+
+```yaml
+metrics:
+  correctness_avg_score:
+    direction: higher
+    minimum: 0.90
+    max_regression: 0.02
+  case_error_rate:
+    direction: lower
+    maximum: 0.05
+    max_regression: 0.02
+```
+
+- `direction` is `higher` for metrics where larger values are better, or `lower` where smaller
+  values are better.
+- `minimum` and `maximum` define candidate value bounds when applicable.
+- `max_regression` limits the allowed movement in the unfavorable direction from baseline.
+
+## Dashboard
+
+Start the application and open [http://127.0.0.1:8000/dashboard](http://127.0.0.1:8000/dashboard).
+The lightweight static HTML/JavaScript dashboard uses the existing FastAPI endpoints to provide:
+
+- Experiment history sorted by start time, with system, dataset, application version, and status.
+- Baseline and candidate experiment selectors.
+- Overall `PASS`/`FAIL` comparison results.
+- Metric baseline, candidate, delta, and improved/regressed/unchanged status.
+- Regression `Gate` and `Reason` details for each metric.
+- Newly failing cases and resolved cases.
+
+## Orange PDF Signer Integration
+
+The reusable adapter is in `app/systems/pdf_signer/`. The external Orange PDF Signer repository is
+not copied into this repository. Instead, the adapter invokes its `pdf_backend.py` CLI through
+`subprocess`.
+
+Supported operations are `detect` and `place`. Configure the external backend with:
+
+```bash
+export PDF_SIGNER_BACKEND_PATH="/path/to/orange-pdf-signer/pdf_backend.py"
+export PDF_SIGNER_PYTHON="/path/to/orange-pdf-signer/.venv/bin/python"
+```
+
+`PDF_SIGNER_PYTHON` is optional. It is useful when the external signer needs its own Python
+environment for dependencies such as PyMuPDF and Pillow. The adapter also provides deterministic
+evaluators for signature detection, coordinate matching, and generated PDF output:
+
+- `SignatureDetectionEvaluator`
+- `SignatureCoordinateEvaluator`
+- `PDFOutputEvaluator`
+
+Dashboard trace links can be connected once the Langfuse integration exposes its trace URL or
+metadata contract. Langfuse dashboard links are not currently assumed by this reporting layer.
+
+## Testing
+
+Run the full test suite with:
+
+```bash
+python3 -m pytest -q
+```
+
+At the time of this implementation, the full suite passes with 49 tests.
+
 ## Experiment JSON shape
 
 ```json
