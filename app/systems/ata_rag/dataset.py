@@ -1,0 +1,109 @@
+"""Validation helpers for the ATA golden dataset (``datasets/ata_rag/``).
+
+Run from the repo root to check a dataset file and see the category counts::
+
+    python -m app.systems.ata_rag.dataset datasets/ata_rag/ata-rag-v1.json
+"""
+
+from __future__ import annotations
+
+import json
+import sys
+from collections import Counter
+from pathlib import Path
+from typing import Any
+
+from pydantic import ValidationError
+
+from app.core.models import EvaluationCase
+
+SYSTEM_NAME = "ata-rag"
+VALID_CATEGORIES = {
+    "factual",
+    "multi_document",
+    "ambiguous",
+    "no_answer",
+    "misleading_assumption",
+    "source_attribution",
+}
+CATEGORIES_REQUIRING_SOURCES = {"factual", "multi_document", "source_attribution"}
+VALID_LANGUAGES = {"en", "pl"}
+
+
+def validate_cases(raw_cases: list[dict[str, Any]]) -> tuple[list[EvaluationCase], list[str]]:
+    """Parse raw dicts into ``EvaluationCase`` objects and return (cases, problems)."""
+    cases: list[EvaluationCase] = []
+    problems: list[str] = []
+    seen_ids: set[str] = set()
+
+    for index, raw in enumerate(raw_cases):
+        label = f"#{index} ({raw.get('id', 'no id') if isinstance(raw, dict) else 'not an object'})"
+        try:
+            case = EvaluationCase.model_validate(raw)
+        except ValidationError as exc:
+            problems.append(f"{label}: invalid case format: {exc.errors()[0]['msg']}")
+            continue
+
+        if case.id in seen_ids:
+            problems.append(f"{label}: duplicate id")
+        seen_ids.add(case.id)
+
+        if case.system != SYSTEM_NAME:
+            problems.append(f"{label}: system must be '{SYSTEM_NAME}'")
+
+        question = case.input.get("question")
+        if not isinstance(question, str) or not question.strip():
+            problems.append(f"{label}: input.question is missing or empty")
+        language = case.input.get("language")
+        if language is not None and language not in VALID_LANGUAGES:
+            problems.append(f"{label}: input.language must be one of {sorted(VALID_LANGUAGES)}")
+
+        category = case.metadata.get("category")
+        if category not in VALID_CATEGORIES:
+            problems.append(f"{label}: metadata.category must be one of {sorted(VALID_CATEGORIES)}")
+
+        sources = case.expected_output.get("sources") or []
+        if not all(isinstance(s, str) and s.startswith("http") for s in sources):
+            problems.append(f"{label}: expected_output.sources must be full http(s) URLs")
+
+        if category == "no_answer":
+            if case.expected_output.get("no_answer") is not True:
+                problems.append(f"{label}: no_answer cases need expected_output.no_answer = true")
+        else:
+            if not (case.expected_output.get("answer") or sources):
+                problems.append(f"{label}: needs expected_output.answer and/or sources")
+            if category in CATEGORIES_REQUIRING_SOURCES and not sources:
+                problems.append(f"{label}: category '{category}' needs expected_output.sources")
+
+        cases.append(case)
+
+    return cases, problems
+
+
+def category_counts(cases: list[EvaluationCase]) -> dict[str, int]:
+    return dict(Counter(c.metadata.get("category", "unknown") for c in cases))
+
+
+def main(argv: list[str]) -> int:
+    if len(argv) != 2:
+        print("Usage: python -m app.systems.ata_rag.dataset <dataset.json>")
+        return 2
+    raw = json.loads(Path(argv[1]).read_text(encoding="utf-8"))
+    if not isinstance(raw, list):
+        print("Dataset must be a JSON array of cases.")
+        return 2
+    cases, problems = validate_cases(raw)
+    print(f"Cases: {len(cases)}")
+    for category, count in sorted(category_counts(cases).items()):
+        print(f"  {category}: {count}")
+    if problems:
+        print(f"\n{len(problems)} problem(s):")
+        for problem in problems:
+            print(f"  - {problem}")
+        return 1
+    print("\nNo problems found.")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv))
