@@ -1,0 +1,59 @@
+# ATA RAG LLM-judge rubrics (Person 2).
+# Config only: the generic judge (Person 4) reads these; no LLM client lives here.
+# Field names follow the guide's rubric contract (name, criteria, fields, threshold,
+# prompt_version). Align exact key names with Person 4 if they differ.
+#
+# `fields` selects what the judge sees:
+#   input    -> keys of case.input
+#   expected -> keys of case.expected_output
+#   actual   -> keys of SystemOutput.output
+#   context  -> keys of SystemOutput.metadata (source_details holds the retrieved
+#               page titles/sections/excerpts that ATA returned)
+
+rubrics:
+  - name: answer_correctness
+    prompt_version: ata-answer-correctness-v1
+    pass_threshold: 0.7
+    criteria: |
+      Decide whether the actual answer correctly answers the question, using the
+      expected answer as the reference. Key facts (numbers, dates, names, requirements)
+      must match; extra correct detail is fine, wording may differ, and the answer
+      may be in a different language than the source pages. Score 1.0 for fully
+      correct, lower for missing/incorrect key facts, 0.0 for wrong or off-topic.
+      If the expected output says the question cannot be answered, the answer is
+      correct only if it declines to answer without inventing information.
+    fields:
+      input: [question, language]
+      expected: [answer, no_answer]
+      actual: [answer]
+
+  - name: groundedness
+    prompt_version: ata-groundedness-v1
+    pass_threshold: 0.7
+    criteria: |
+      Decide whether every factual claim in the actual answer is supported by the
+      retrieved source excerpts provided as context. Penalize claims (numbers, dates,
+      conditions) that do not appear in the excerpts, even if they sound plausible.
+      An answer that declines to answer is grounded. Score 1.0 if all claims are
+      supported, lower for each unsupported claim, 0.0 if mostly invented.
+    fields:
+      input: [question]
+      actual: [answer]
+      context: [source_details]
+
+  - name: citation_source_correctness
+    prompt_version: ata-citation-v1
+    pass_threshold: 0.7
+    criteria: |
+      Decide whether the returned sources are appropriate for the question: the pages
+      listed in actual sources should be the ones that contain the answer, compared
+      with the expected sources. Note that ATA returns the pages it retrieved, not
+      only those quoted in the answer. Score 1.0 if the expected pages are present and
+      no clearly irrelevant page is listed first, lower for missing expected pages,
+      0.0 if none of the sources relate to the question. For questions that should not
+      be answered, sources should be empty.
+    fields:
+      input: [question]
+      expected: [sources]
+      actual: [sources]
+      context: [source_details]
