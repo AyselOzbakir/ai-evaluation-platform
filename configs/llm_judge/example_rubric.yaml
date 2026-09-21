@@ -1,0 +1,16 @@
+name: answer_correctness
+prompt_version: generic-answer-correctness-v1
+pass_threshold: 0.7
+criteria: |
+  Evaluate whether the actual output satisfies the expected output.
+  Reward correct, relevant, and complete answers. Penalize contradictions,
+  unsupported claims, and missing required information.
+fields:
+  input:
+    - question
+  expected:
+    - answer
+  actual:
+    - answer
+  context:
+    - retrieved_context
