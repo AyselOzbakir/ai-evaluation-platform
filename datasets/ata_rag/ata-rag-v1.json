@@ -1,0 +1,1802 @@
+[
+  {
+    "id": "ata-rag-001",
+    "system": "ata-rag",
+    "input": {
+      "question": "What synthetic policy fact is covered by case 001?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic policy answer 001.",
+      "sources": ["https://synthetic.example/ata/source-001"]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "factual_answer"
+    }
+  },
+  {
+    "id": "ata-rag-002",
+    "system": "ata-rag",
+    "input": {
+      "question": "What synthetic policy fact is covered by case 002?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic policy answer 002.",
+      "sources": ["https://synthetic.example/ata/source-002"]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "factual_answer"
+    }
+  },
+  {
+    "id": "ata-rag-003",
+    "system": "ata-rag",
+    "input": {
+      "question": "What synthetic policy fact is covered by case 003?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic policy answer 003.",
+      "sources": ["https://synthetic.example/ata/source-003"]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "factual_answer"
+    }
+  },
+  {
+    "id": "ata-rag-004",
+    "system": "ata-rag",
+    "input": {
+      "question": "What synthetic policy fact is covered by case 004?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic policy answer 004.",
+      "sources": ["https://synthetic.example/ata/source-004"]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "factual_answer"
+    }
+  },
+  {
+    "id": "ata-rag-005",
+    "system": "ata-rag",
+    "input": {
+      "question": "What synthetic policy fact is covered by case 005?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic policy answer 005.",
+      "sources": ["https://synthetic.example/ata/source-005"]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "factual_answer"
+    }
+  },
+  {
+    "id": "ata-rag-006",
+    "system": "ata-rag",
+    "input": {
+      "question": "What synthetic policy fact is covered by case 006?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic policy answer 006.",
+      "sources": ["https://synthetic.example/ata/source-006"]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "factual_answer"
+    }
+  },
+  {
+    "id": "ata-rag-007",
+    "system": "ata-rag",
+    "input": {
+      "question": "What synthetic policy fact is covered by case 007?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic policy answer 007.",
+      "sources": ["https://synthetic.example/ata/source-007"]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "factual_answer"
+    }
+  },
+  {
+    "id": "ata-rag-008",
+    "system": "ata-rag",
+    "input": {
+      "question": "What synthetic policy fact is covered by case 008?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic policy answer 008.",
+      "sources": ["https://synthetic.example/ata/source-008"]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "factual_answer"
+    }
+  },
+  {
+    "id": "ata-rag-009",
+    "system": "ata-rag",
+    "input": {
+      "question": "What synthetic policy fact is covered by case 009?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic policy answer 009.",
+      "sources": ["https://synthetic.example/ata/source-009"]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "factual_answer"
+    }
+  },
+  {
+    "id": "ata-rag-010",
+    "system": "ata-rag",
+    "input": {
+      "question": "What synthetic policy fact is covered by case 010?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic policy answer 010.",
+      "sources": ["https://synthetic.example/ata/source-010"]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "factual_answer"
+    }
+  },
+  {
+    "id": "ata-rag-011",
+    "system": "ata-rag",
+    "input": {
+      "question": "Which two synthetic sources cover case 011?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic multi-source answer 011.",
+      "sources": [
+        "https://synthetic.example/ata/source-011-a",
+        "https://synthetic.example/ata/source-011-b"
+      ]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "multi_source"
+    }
+  },
+  {
+    "id": "ata-rag-012",
+    "system": "ata-rag",
+    "input": {
+      "question": "Which two synthetic sources cover case 012?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic multi-source answer 012.",
+      "sources": [
+        "https://synthetic.example/ata/source-012-a",
+        "https://synthetic.example/ata/source-012-b"
+      ]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "multi_source"
+    }
+  },
+  {
+    "id": "ata-rag-013",
+    "system": "ata-rag",
+    "input": {
+      "question": "Which two synthetic sources cover case 013?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic multi-source answer 013.",
+      "sources": [
+        "https://synthetic.example/ata/source-013-a",
+        "https://synthetic.example/ata/source-013-b"
+      ]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "multi_source"
+    }
+  },
+  {
+    "id": "ata-rag-014",
+    "system": "ata-rag",
+    "input": {
+      "question": "Which two synthetic sources cover case 014?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic multi-source answer 014.",
+      "sources": [
+        "https://synthetic.example/ata/source-014-a",
+        "https://synthetic.example/ata/source-014-b"
+      ]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "multi_source"
+    }
+  },
+  {
+    "id": "ata-rag-015",
+    "system": "ata-rag",
+    "input": {
+      "question": "Which two synthetic sources cover case 015?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic multi-source answer 015.",
+      "sources": [
+        "https://synthetic.example/ata/source-015-a",
+        "https://synthetic.example/ata/source-015-b"
+      ]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "multi_source"
+    }
+  },
+  {
+    "id": "ata-rag-016",
+    "system": "ata-rag",
+    "input": {
+      "question": "Which two synthetic sources cover case 016?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic multi-source answer 016.",
+      "sources": [
+        "https://synthetic.example/ata/source-016-a",
+        "https://synthetic.example/ata/source-016-b"
+      ]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "multi_source"
+    }
+  },
+  {
+    "id": "ata-rag-017",
+    "system": "ata-rag",
+    "input": {
+      "question": "Which two synthetic sources cover case 017?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic multi-source answer 017.",
+      "sources": [
+        "https://synthetic.example/ata/source-017-a",
+        "https://synthetic.example/ata/source-017-b"
+      ]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "multi_source"
+    }
+  },
+  {
+    "id": "ata-rag-018",
+    "system": "ata-rag",
+    "input": {
+      "question": "Which two synthetic sources cover case 018?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic multi-source answer 018.",
+      "sources": [
+        "https://synthetic.example/ata/source-018-a",
+        "https://synthetic.example/ata/source-018-b"
+      ]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "multi_source"
+    }
+  },
+  {
+    "id": "ata-rag-019",
+    "system": "ata-rag",
+    "input": {
+      "question": "Which two synthetic sources cover case 019?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic multi-source answer 019.",
+      "sources": [
+        "https://synthetic.example/ata/source-019-a",
+        "https://synthetic.example/ata/source-019-b"
+      ]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "multi_source"
+    }
+  },
+  {
+    "id": "ata-rag-020",
+    "system": "ata-rag",
+    "input": {
+      "question": "Which two synthetic sources cover case 020?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic multi-source answer 020.",
+      "sources": [
+        "https://synthetic.example/ata/source-020-a",
+        "https://synthetic.example/ata/source-020-b"
+      ]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "multi_source"
+    }
+  },
+  {
+    "id": "ata-rag-021",
+    "system": "ata-rag",
+    "input": {
+      "question": "Can the synthetic corpus answer case 021?",
+      "language": "en"
+    },
+    "expected_output": { "no_answer": true },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "no_answer"
+    }
+  },
+  {
+    "id": "ata-rag-022",
+    "system": "ata-rag",
+    "input": {
+      "question": "Can the synthetic corpus answer case 022?",
+      "language": "en"
+    },
+    "expected_output": { "no_answer": true },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "no_answer"
+    }
+  },
+  {
+    "id": "ata-rag-023",
+    "system": "ata-rag",
+    "input": {
+      "question": "Can the synthetic corpus answer case 023?",
+      "language": "en"
+    },
+    "expected_output": { "no_answer": true },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "no_answer"
+    }
+  },
+  {
+    "id": "ata-rag-024",
+    "system": "ata-rag",
+    "input": {
+      "question": "Can the synthetic corpus answer case 024?",
+      "language": "en"
+    },
+    "expected_output": { "no_answer": true },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "no_answer"
+    }
+  },
+  {
+    "id": "ata-rag-025",
+    "system": "ata-rag",
+    "input": {
+      "question": "Can the synthetic corpus answer case 025?",
+      "language": "en"
+    },
+    "expected_output": { "no_answer": true },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "no_answer"
+    }
+  },
+  {
+    "id": "ata-rag-026",
+    "system": "ata-rag",
+    "input": {
+      "question": "Can the synthetic corpus answer case 026?",
+      "language": "en"
+    },
+    "expected_output": { "no_answer": true },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "no_answer"
+    }
+  },
+  {
+    "id": "ata-rag-027",
+    "system": "ata-rag",
+    "input": {
+      "question": "Can the synthetic corpus answer case 027?",
+      "language": "en"
+    },
+    "expected_output": { "no_answer": true },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "no_answer"
+    }
+  },
+  {
+    "id": "ata-rag-028",
+    "system": "ata-rag",
+    "input": {
+      "question": "Can the synthetic corpus answer case 028?",
+      "language": "en"
+    },
+    "expected_output": { "no_answer": true },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "no_answer"
+    }
+  },
+  {
+    "id": "ata-rag-029",
+    "system": "ata-rag",
+    "input": {
+      "question": "Can the synthetic corpus answer case 029?",
+      "language": "en"
+    },
+    "expected_output": { "no_answer": true },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "no_answer"
+    }
+  },
+  {
+    "id": "ata-rag-030",
+    "system": "ata-rag",
+    "input": {
+      "question": "Can the synthetic corpus answer case 030?",
+      "language": "en"
+    },
+    "expected_output": { "no_answer": true },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "no_answer"
+    }
+  },
+  {
+    "id": "ata-rag-031",
+    "system": "ata-rag",
+    "input": {
+      "question": "Which citation is required for synthetic case 031?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic citation answer 031.",
+      "sources": ["https://synthetic.example/ata/source-031"]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "citation_required"
+    }
+  },
+  {
+    "id": "ata-rag-032",
+    "system": "ata-rag",
+    "input": {
+      "question": "Which citation is required for synthetic case 032?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic citation answer 032.",
+      "sources": ["https://synthetic.example/ata/source-032"]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "citation_required"
+    }
+  },
+  {
+    "id": "ata-rag-033",
+    "system": "ata-rag",
+    "input": {
+      "question": "Which citation is required for synthetic case 033?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic citation answer 033.",
+      "sources": ["https://synthetic.example/ata/source-033"]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "citation_required"
+    }
+  },
+  {
+    "id": "ata-rag-034",
+    "system": "ata-rag",
+    "input": {
+      "question": "Which citation is required for synthetic case 034?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic citation answer 034.",
+      "sources": ["https://synthetic.example/ata/source-034"]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "citation_required"
+    }
+  },
+  {
+    "id": "ata-rag-035",
+    "system": "ata-rag",
+    "input": {
+      "question": "Which citation is required for synthetic case 035?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic citation answer 035.",
+      "sources": ["https://synthetic.example/ata/source-035"]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "citation_required"
+    }
+  },
+  {
+    "id": "ata-rag-036",
+    "system": "ata-rag",
+    "input": {
+      "question": "Which citation is required for synthetic case 036?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic citation answer 036.",
+      "sources": ["https://synthetic.example/ata/source-036"]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "citation_required"
+    }
+  },
+  {
+    "id": "ata-rag-037",
+    "system": "ata-rag",
+    "input": {
+      "question": "Which citation is required for synthetic case 037?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic citation answer 037.",
+      "sources": ["https://synthetic.example/ata/source-037"]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "citation_required"
+    }
+  },
+  {
+    "id": "ata-rag-038",
+    "system": "ata-rag",
+    "input": {
+      "question": "Which citation is required for synthetic case 038?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic citation answer 038.",
+      "sources": ["https://synthetic.example/ata/source-038"]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "citation_required"
+    }
+  },
+  {
+    "id": "ata-rag-039",
+    "system": "ata-rag",
+    "input": {
+      "question": "Which citation is required for synthetic case 039?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic citation answer 039.",
+      "sources": ["https://synthetic.example/ata/source-039"]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "citation_required"
+    }
+  },
+  {
+    "id": "ata-rag-040",
+    "system": "ata-rag",
+    "input": {
+      "question": "Which citation is required for synthetic case 040?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic citation answer 040.",
+      "sources": ["https://synthetic.example/ata/source-040"]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "citation_required"
+    }
+  },
+  {
+    "id": "ata-rag-041",
+    "system": "ata-rag",
+    "input": {
+      "question": "What partial synthetic answer applies to case 041?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic partial answer 041.",
+      "sources": ["https://synthetic.example/ata/source-041"]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "partial_relevance"
+    }
+  },
+  {
+    "id": "ata-rag-042",
+    "system": "ata-rag",
+    "input": {
+      "question": "What partial synthetic answer applies to case 042?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic partial answer 042.",
+      "sources": ["https://synthetic.example/ata/source-042"]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "partial_relevance"
+    }
+  },
+  {
+    "id": "ata-rag-043",
+    "system": "ata-rag",
+    "input": {
+      "question": "What partial synthetic answer applies to case 043?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic partial answer 043.",
+      "sources": ["https://synthetic.example/ata/source-043"]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "partial_relevance"
+    }
+  },
+  {
+    "id": "ata-rag-044",
+    "system": "ata-rag",
+    "input": {
+      "question": "What partial synthetic answer applies to case 044?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic partial answer 044.",
+      "sources": ["https://synthetic.example/ata/source-044"]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "partial_relevance"
+    }
+  },
+  {
+    "id": "ata-rag-045",
+    "system": "ata-rag",
+    "input": {
+      "question": "What partial synthetic answer applies to case 045?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic partial answer 045.",
+      "sources": ["https://synthetic.example/ata/source-045"]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "partial_relevance"
+    }
+  },
+  {
+    "id": "ata-rag-046",
+    "system": "ata-rag",
+    "input": {
+      "question": "What partial synthetic answer applies to case 046?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic partial answer 046.",
+      "sources": ["https://synthetic.example/ata/source-046"]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "partial_relevance"
+    }
+  },
+  {
+    "id": "ata-rag-047",
+    "system": "ata-rag",
+    "input": {
+      "question": "What partial synthetic answer applies to case 047?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic partial answer 047.",
+      "sources": ["https://synthetic.example/ata/source-047"]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "partial_relevance"
+    }
+  },
+  {
+    "id": "ata-rag-048",
+    "system": "ata-rag",
+    "input": {
+      "question": "What partial synthetic answer applies to case 048?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic partial answer 048.",
+      "sources": ["https://synthetic.example/ata/source-048"]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "partial_relevance"
+    }
+  },
+  {
+    "id": "ata-rag-049",
+    "system": "ata-rag",
+    "input": {
+      "question": "What partial synthetic answer applies to case 049?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic partial answer 049.",
+      "sources": ["https://synthetic.example/ata/source-049"]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "partial_relevance"
+    }
+  },
+  {
+    "id": "ata-rag-050",
+    "system": "ata-rag",
+    "input": {
+      "question": "What partial synthetic answer applies to case 050?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic partial answer 050.",
+      "sources": ["https://synthetic.example/ata/source-050"]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "partial_relevance"
+    }
+  },
+  {
+    "id": "ata-rag-051",
+    "system": "ata-rag",
+    "input": {
+      "question": "Which source is relevant among distractors for case 051?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic distractor answer 051.",
+      "sources": ["https://synthetic.example/ata/source-051"]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "distractor_sources"
+    }
+  },
+  {
+    "id": "ata-rag-052",
+    "system": "ata-rag",
+    "input": {
+      "question": "Which source is relevant among distractors for case 052?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic distractor answer 052.",
+      "sources": ["https://synthetic.example/ata/source-052"]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "distractor_sources"
+    }
+  },
+  {
+    "id": "ata-rag-053",
+    "system": "ata-rag",
+    "input": {
+      "question": "Which source is relevant among distractors for case 053?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic distractor answer 053.",
+      "sources": ["https://synthetic.example/ata/source-053"]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "distractor_sources"
+    }
+  },
+  {
+    "id": "ata-rag-054",
+    "system": "ata-rag",
+    "input": {
+      "question": "Which source is relevant among distractors for case 054?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic distractor answer 054.",
+      "sources": ["https://synthetic.example/ata/source-054"]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "distractor_sources"
+    }
+  },
+  {
+    "id": "ata-rag-055",
+    "system": "ata-rag",
+    "input": {
+      "question": "Which source is relevant among distractors for case 055?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic distractor answer 055.",
+      "sources": ["https://synthetic.example/ata/source-055"]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "distractor_sources"
+    }
+  },
+  {
+    "id": "ata-rag-056",
+    "system": "ata-rag",
+    "input": {
+      "question": "Which source is relevant among distractors for case 056?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic distractor answer 056.",
+      "sources": ["https://synthetic.example/ata/source-056"]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "distractor_sources"
+    }
+  },
+  {
+    "id": "ata-rag-057",
+    "system": "ata-rag",
+    "input": {
+      "question": "Which source is relevant among distractors for case 057?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic distractor answer 057.",
+      "sources": ["https://synthetic.example/ata/source-057"]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "distractor_sources"
+    }
+  },
+  {
+    "id": "ata-rag-058",
+    "system": "ata-rag",
+    "input": {
+      "question": "Which source is relevant among distractors for case 058?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic distractor answer 058.",
+      "sources": ["https://synthetic.example/ata/source-058"]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "distractor_sources"
+    }
+  },
+  {
+    "id": "ata-rag-059",
+    "system": "ata-rag",
+    "input": {
+      "question": "Which source is relevant among distractors for case 059?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic distractor answer 059.",
+      "sources": ["https://synthetic.example/ata/source-059"]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "distractor_sources"
+    }
+  },
+  {
+    "id": "ata-rag-060",
+    "system": "ata-rag",
+    "input": {
+      "question": "Which source is relevant among distractors for case 060?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic distractor answer 060.",
+      "sources": ["https://synthetic.example/ata/source-060"]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "distractor_sources"
+    }
+  },
+  {
+    "id": "ata-rag-061",
+    "system": "ata-rag",
+    "input": {
+      "question": "What does this ambiguous synthetic query mean for case 061?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic ambiguity answer 061.",
+      "sources": ["https://synthetic.example/ata/source-061"]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "ambiguous_query"
+    }
+  },
+  {
+    "id": "ata-rag-062",
+    "system": "ata-rag",
+    "input": {
+      "question": "What does this ambiguous synthetic query mean for case 062?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic ambiguity answer 062.",
+      "sources": ["https://synthetic.example/ata/source-062"]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "ambiguous_query"
+    }
+  },
+  {
+    "id": "ata-rag-063",
+    "system": "ata-rag",
+    "input": {
+      "question": "What does this ambiguous synthetic query mean for case 063?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic ambiguity answer 063.",
+      "sources": ["https://synthetic.example/ata/source-063"]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "ambiguous_query"
+    }
+  },
+  {
+    "id": "ata-rag-064",
+    "system": "ata-rag",
+    "input": {
+      "question": "What does this ambiguous synthetic query mean for case 064?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic ambiguity answer 064.",
+      "sources": ["https://synthetic.example/ata/source-064"]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "ambiguous_query"
+    }
+  },
+  {
+    "id": "ata-rag-065",
+    "system": "ata-rag",
+    "input": {
+      "question": "What does this ambiguous synthetic query mean for case 065?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic ambiguity answer 065.",
+      "sources": ["https://synthetic.example/ata/source-065"]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "ambiguous_query"
+    }
+  },
+  {
+    "id": "ata-rag-066",
+    "system": "ata-rag",
+    "input": {
+      "question": "What does this ambiguous synthetic query mean for case 066?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic ambiguity answer 066.",
+      "sources": ["https://synthetic.example/ata/source-066"]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "ambiguous_query"
+    }
+  },
+  {
+    "id": "ata-rag-067",
+    "system": "ata-rag",
+    "input": {
+      "question": "What does this ambiguous synthetic query mean for case 067?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic ambiguity answer 067.",
+      "sources": ["https://synthetic.example/ata/source-067"]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "ambiguous_query"
+    }
+  },
+  {
+    "id": "ata-rag-068",
+    "system": "ata-rag",
+    "input": {
+      "question": "What does this ambiguous synthetic query mean for case 068?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic ambiguity answer 068.",
+      "sources": ["https://synthetic.example/ata/source-068"]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "ambiguous_query"
+    }
+  },
+  {
+    "id": "ata-rag-069",
+    "system": "ata-rag",
+    "input": {
+      "question": "What does this ambiguous synthetic query mean for case 069?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic ambiguity answer 069.",
+      "sources": ["https://synthetic.example/ata/source-069"]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "ambiguous_query"
+    }
+  },
+  {
+    "id": "ata-rag-070",
+    "system": "ata-rag",
+    "input": {
+      "question": "What does this ambiguous synthetic query mean for case 070?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic ambiguity answer 070.",
+      "sources": ["https://synthetic.example/ata/source-070"]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "ambiguous_query"
+    }
+  },
+  {
+    "id": "ata-rag-071",
+    "system": "ata-rag",
+    "input": {
+      "question": "Which exact synthetic source answers case 071?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic exact-source answer 071.",
+      "sources": ["https://synthetic.example/ata/source-071"]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "exact_source_match"
+    }
+  },
+  {
+    "id": "ata-rag-072",
+    "system": "ata-rag",
+    "input": {
+      "question": "Which exact synthetic source answers case 072?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic exact-source answer 072.",
+      "sources": ["https://synthetic.example/ata/source-072"]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "exact_source_match"
+    }
+  },
+  {
+    "id": "ata-rag-073",
+    "system": "ata-rag",
+    "input": {
+      "question": "Which exact synthetic source answers case 073?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic exact-source answer 073.",
+      "sources": ["https://synthetic.example/ata/source-073"]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "exact_source_match"
+    }
+  },
+  {
+    "id": "ata-rag-074",
+    "system": "ata-rag",
+    "input": {
+      "question": "Which exact synthetic source answers case 074?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic exact-source answer 074.",
+      "sources": ["https://synthetic.example/ata/source-074"]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "exact_source_match"
+    }
+  },
+  {
+    "id": "ata-rag-075",
+    "system": "ata-rag",
+    "input": {
+      "question": "Which exact synthetic source answers case 075?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic exact-source answer 075.",
+      "sources": ["https://synthetic.example/ata/source-075"]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "exact_source_match"
+    }
+  },
+  {
+    "id": "ata-rag-076",
+    "system": "ata-rag",
+    "input": {
+      "question": "Which exact synthetic source answers case 076?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic exact-source answer 076.",
+      "sources": ["https://synthetic.example/ata/source-076"]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "exact_source_match"
+    }
+  },
+  {
+    "id": "ata-rag-077",
+    "system": "ata-rag",
+    "input": {
+      "question": "Which exact synthetic source answers case 077?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic exact-source answer 077.",
+      "sources": ["https://synthetic.example/ata/source-077"]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "exact_source_match"
+    }
+  },
+  {
+    "id": "ata-rag-078",
+    "system": "ata-rag",
+    "input": {
+      "question": "Which exact synthetic source answers case 078?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic exact-source answer 078.",
+      "sources": ["https://synthetic.example/ata/source-078"]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "exact_source_match"
+    }
+  },
+  {
+    "id": "ata-rag-079",
+    "system": "ata-rag",
+    "input": {
+      "question": "Which exact synthetic source answers case 079?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic exact-source answer 079.",
+      "sources": ["https://synthetic.example/ata/source-079"]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "exact_source_match"
+    }
+  },
+  {
+    "id": "ata-rag-080",
+    "system": "ata-rag",
+    "input": {
+      "question": "Which exact synthetic source answers case 080?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic exact-source answer 080.",
+      "sources": ["https://synthetic.example/ata/source-080"]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "exact_source_match"
+    }
+  },
+  {
+    "id": "ata-rag-081",
+    "system": "ata-rag",
+    "input": {
+      "question": "What happens when a synthetic source is missing in case 081?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic missing-source answer 081.",
+      "sources": ["https://synthetic.example/ata/source-081"]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "missing_source"
+    }
+  },
+  {
+    "id": "ata-rag-082",
+    "system": "ata-rag",
+    "input": {
+      "question": "What happens when a synthetic source is missing in case 082?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic missing-source answer 082.",
+      "sources": ["https://synthetic.example/ata/source-082"]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "missing_source"
+    }
+  },
+  {
+    "id": "ata-rag-083",
+    "system": "ata-rag",
+    "input": {
+      "question": "What happens when a synthetic source is missing in case 083?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic missing-source answer 083.",
+      "sources": ["https://synthetic.example/ata/source-083"]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "missing_source"
+    }
+  },
+  {
+    "id": "ata-rag-084",
+    "system": "ata-rag",
+    "input": {
+      "question": "What happens when a synthetic source is missing in case 084?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic missing-source answer 084.",
+      "sources": ["https://synthetic.example/ata/source-084"]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "missing_source"
+    }
+  },
+  {
+    "id": "ata-rag-085",
+    "system": "ata-rag",
+    "input": {
+      "question": "What happens when a synthetic source is missing in case 085?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic missing-source answer 085.",
+      "sources": ["https://synthetic.example/ata/source-085"]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "missing_source"
+    }
+  },
+  {
+    "id": "ata-rag-086",
+    "system": "ata-rag",
+    "input": {
+      "question": "What happens when a synthetic source is missing in case 086?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic missing-source answer 086.",
+      "sources": ["https://synthetic.example/ata/source-086"]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "missing_source"
+    }
+  },
+  {
+    "id": "ata-rag-087",
+    "system": "ata-rag",
+    "input": {
+      "question": "What happens when a synthetic source is missing in case 087?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic missing-source answer 087.",
+      "sources": ["https://synthetic.example/ata/source-087"]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "missing_source"
+    }
+  },
+  {
+    "id": "ata-rag-088",
+    "system": "ata-rag",
+    "input": {
+      "question": "What happens when a synthetic source is missing in case 088?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic missing-source answer 088.",
+      "sources": ["https://synthetic.example/ata/source-088"]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "missing_source"
+    }
+  },
+  {
+    "id": "ata-rag-089",
+    "system": "ata-rag",
+    "input": {
+      "question": "What happens when a synthetic source is missing in case 089?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic missing-source answer 089.",
+      "sources": ["https://synthetic.example/ata/source-089"]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "missing_source"
+    }
+  },
+  {
+    "id": "ata-rag-090",
+    "system": "ata-rag",
+    "input": {
+      "question": "What happens when a synthetic source is missing in case 090?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic missing-source answer 090.",
+      "sources": ["https://synthetic.example/ata/source-090"]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "missing_source"
+    }
+  },
+  {
+    "id": "ata-rag-091",
+    "system": "ata-rag",
+    "input": {
+      "question": "What synthetic edge condition applies to case 091?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic edge answer 091.",
+      "sources": ["https://synthetic.example/ata/source-091"]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "edge_case"
+    }
+  },
+  {
+    "id": "ata-rag-092",
+    "system": "ata-rag",
+    "input": {
+      "question": "What synthetic edge condition applies to case 092?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic edge answer 092.",
+      "sources": ["https://synthetic.example/ata/source-092"]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "edge_case"
+    }
+  },
+  {
+    "id": "ata-rag-093",
+    "system": "ata-rag",
+    "input": {
+      "question": "What synthetic edge condition applies to case 093?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic edge answer 093.",
+      "sources": ["https://synthetic.example/ata/source-093"]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "edge_case"
+    }
+  },
+  {
+    "id": "ata-rag-094",
+    "system": "ata-rag",
+    "input": {
+      "question": "What synthetic edge condition applies to case 094?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic edge answer 094.",
+      "sources": ["https://synthetic.example/ata/source-094"]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "edge_case"
+    }
+  },
+  {
+    "id": "ata-rag-095",
+    "system": "ata-rag",
+    "input": {
+      "question": "What synthetic edge condition applies to case 095?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic edge answer 095.",
+      "sources": ["https://synthetic.example/ata/source-095"]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "edge_case"
+    }
+  },
+  {
+    "id": "ata-rag-096",
+    "system": "ata-rag",
+    "input": {
+      "question": "What synthetic edge condition applies to case 096?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic edge answer 096.",
+      "sources": ["https://synthetic.example/ata/source-096"]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "edge_case"
+    }
+  },
+  {
+    "id": "ata-rag-097",
+    "system": "ata-rag",
+    "input": {
+      "question": "What synthetic edge condition applies to case 097?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic edge answer 097.",
+      "sources": ["https://synthetic.example/ata/source-097"]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "edge_case"
+    }
+  },
+  {
+    "id": "ata-rag-098",
+    "system": "ata-rag",
+    "input": {
+      "question": "What synthetic edge condition applies to case 098?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic edge answer 098.",
+      "sources": ["https://synthetic.example/ata/source-098"]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "edge_case"
+    }
+  },
+  {
+    "id": "ata-rag-099",
+    "system": "ata-rag",
+    "input": {
+      "question": "What synthetic edge condition applies to case 099?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic edge answer 099.",
+      "sources": ["https://synthetic.example/ata/source-099"]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "edge_case"
+    }
+  },
+  {
+    "id": "ata-rag-100",
+    "system": "ata-rag",
+    "input": {
+      "question": "What synthetic edge condition applies to case 100?",
+      "language": "en"
+    },
+    "expected_output": {
+      "answer": "Synthetic edge answer 100.",
+      "sources": ["https://synthetic.example/ata/source-100"]
+    },
+    "metadata": {
+      "dataset_version": "ata-rag-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "edge_case"
+    }
+  }
+]

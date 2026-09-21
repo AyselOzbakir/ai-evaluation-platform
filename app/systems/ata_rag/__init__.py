@@ -9,6 +9,7 @@ from app.systems.ata_rag.evaluators import (
     RetrievalRecallAtK,
     default_evaluators,
 )
+from app.systems.ata_rag.judge import default_judge_evaluators
 
 __all__ = [
     "ATARagAdapter",
@@ -20,4 +21,5 @@ __all__ = [
     "RetrievalPrecisionAtK",
     "RetrievalRecallAtK",
     "default_evaluators",
+    "default_judge_evaluators",
 ]
