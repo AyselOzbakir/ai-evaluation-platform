@@ -118,3 +118,18 @@ def test_enabled_fake_client_receives_root_lifecycle_and_sidecar(tmp_path, monke
         "langfuse_trace_id": "trace-123",
         "langfuse_trace_url": "https://langfuse.example/project/project-1/traces/trace-123",
     }
+
+
+def test_wrapper_generated_id_matches_sidecar_and_artifact(tmp_path, monkeypatch):
+    monkeypatch.setenv("EXPERIMENT_ARTIFACT_DIR", str(tmp_path / "artifacts"))
+    result = run_experiment_with_langfuse(
+        make_config(tmp_path),
+        make_registry(),
+        client=DisabledFake(),
+    )
+
+    artifact = tmp_path / "artifacts" / f"{result.experiment_id}.json"
+    sidecar = tmp_path / "observability" / f"{result.experiment_id}.json"
+    assert artifact.exists()
+    assert sidecar.exists()
+    assert json.loads(sidecar.read_text())["experiment_id"] == result.experiment_id

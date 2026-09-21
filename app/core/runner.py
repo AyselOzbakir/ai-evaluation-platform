@@ -12,8 +12,8 @@ from app.core.storage import save_experiment
 
 
 def _make_experiment_id(system: str, label: str) -> str:
-    date = datetime.now(UTC).strftime("%Y-%m-%d")
-    return f"{date}_{system}_{label}"
+    timestamp = datetime.now(UTC).strftime("%Y-%m-%d_%H%M%S%f")
+    return f"{timestamp}_{system}_{label}"
 
 
 def run_experiment(

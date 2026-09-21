@@ -1,8 +1,12 @@
 import json
 
+import pytest
+
 from app.core.config import RunConfig
 from app.core.registry import Registry
 from app.core.runner import run_experiment
+from app.core.storage import list_experiments, load_experiment
+from app.experiments.comparison import compare_experiments
 from tests.core.fakes import CrashingEvaluator, FakeAdapter, FakeEvaluator
 
 
@@ -64,6 +68,56 @@ def test_persist_writes_json_file(tmp_path, monkeypatch):
     assert saved_path.exists()
     saved = json.loads(saved_path.read_text(encoding="utf-8"))
     assert saved["experiment_id"] == experiment.experiment_id
+
+
+def test_consecutive_runs_create_distinct_retrievable_artifacts(tmp_path, monkeypatch):
+    monkeypatch.setenv("EXPERIMENT_ARTIFACT_DIR", str(tmp_path / "artifacts"))
+    dataset_path = _write_dataset(
+        tmp_path,
+        [{"id": "c1", "system": "fake", "input": {"q": "hi"}}],
+    )
+    config_v1 = RunConfig(
+        system="fake",
+        dataset_version="v1",
+        dataset_path=dataset_path,
+        application_version="demo-v1",
+    )
+    config_v2 = config_v1.model_copy(update={"application_version": "demo-v2"})
+
+    first = run_experiment(config_v1, _registry())
+    second = run_experiment(config_v2, _registry())
+
+    assert first.experiment_id != second.experiment_id
+    assert first.experiment_id < second.experiment_id
+    assert list_experiments() == sorted([first.experiment_id, second.experiment_id])
+    assert load_experiment(first.experiment_id).application_version == "demo-v1"
+    assert load_experiment(second.experiment_id).application_version == "demo-v2"
+    comparison = compare_experiments(
+        load_experiment(first.experiment_id),
+        load_experiment(second.experiment_id),
+    )
+    assert comparison.baseline_id == first.experiment_id
+    assert comparison.candidate_id == second.experiment_id
+
+
+def test_existing_artifact_collision_fails_instead_of_overwriting(tmp_path):
+    from app.core.experiment import ExperimentResult
+    from app.core.storage import save_experiment
+
+    experiment = ExperimentResult(
+        experiment_id="manual-id",
+        system="fake",
+        dataset_version="v1",
+        application_version="demo-v1",
+        started_at="2026-09-22T00:00:00Z",
+    )
+    save_experiment(experiment, directory=tmp_path)
+
+    with pytest.raises(FileExistsError):
+        save_experiment(
+            experiment.model_copy(update={"application_version": "demo-v2"}),
+            directory=tmp_path,
+        )
 
 
 def test_adapter_failure_is_captured_not_raised(tmp_path):

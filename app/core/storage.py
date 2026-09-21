@@ -18,7 +18,8 @@ def save_experiment(experiment: ExperimentResult, directory: str | Path | None =
     target_dir = Path(directory) if directory is not None else artifact_dir()
     target_dir.mkdir(parents=True, exist_ok=True)
     target_path = target_dir / f"{experiment.experiment_id}.json"
-    target_path.write_text(experiment.model_dump_json(indent=2), encoding="utf-8")
+    with target_path.open("x", encoding="utf-8") as artifact_file:
+        artifact_file.write(experiment.model_dump_json(indent=2))
     return target_path
 
 

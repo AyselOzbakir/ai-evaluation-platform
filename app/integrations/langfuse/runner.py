@@ -10,7 +10,7 @@ from typing import Any
 from app.core.config import RunConfig
 from app.core.experiment import ExperimentResult
 from app.core.registry import Registry
-from app.core.runner import run_experiment
+from app.core.runner import _make_experiment_id, run_experiment
 from app.integrations.langfuse.client import create_client, safe_trace_url
 from app.integrations.langfuse.hook import LangfuseObservabilityHook
 from app.integrations.langfuse.metadata import evaluation_metadata, observability_sidecar
@@ -25,7 +25,7 @@ def run_experiment_with_langfuse(
     client: Any | None = None,
 ) -> ExperimentResult:
     langfuse = client or create_client()
-    resolved_id = experiment_id or _predict_experiment_id(config.system, label)
+    resolved_id = experiment_id or _make_experiment_id(config.system, label)
     context = evaluation_metadata(
         experiment_id=resolved_id,
         system=config.system,
@@ -45,7 +45,7 @@ def run_experiment_with_langfuse(
         experiment = run_experiment(
             config,
             registry,
-            experiment_id=experiment_id,
+            experiment_id=resolved_id,
             label=label,
             hook=hook,
             persist=persist,
@@ -64,12 +64,6 @@ def run_experiment_with_langfuse(
         pass
     _write_sidecar(experiment, langfuse)
     return experiment
-
-
-def _predict_experiment_id(system: str, label: str) -> str:
-    from datetime import UTC, datetime
-
-    return f"{datetime.now(UTC).strftime('%Y-%m-%d')}_{system}_{label}"
 
 
 def _write_sidecar(experiment: ExperimentResult, client: Any) -> None:
