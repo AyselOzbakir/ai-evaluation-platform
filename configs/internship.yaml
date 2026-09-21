@@ -1,0 +1,9 @@
+system: internship-coordinator
+dataset_path: datasets/internship/internship-coordinator-v1.json
+dataset_version: internship-coordinator-v1
+allowed_recommendation_labels:
+  - APPROVE
+  - REQUEST CLARIFICATION
+  - REJECT
+external_path_env: INTERNSHIP_COORDINATOR_PATH
+external_python_env: INTERNSHIP_COORDINATOR_PYTHON

@@ -1,0 +1,11 @@
+system: report-reviewer
+dataset_path: datasets/report_reviewer/report-reviewer-v1.json
+dataset_version: report-reviewer-v1
+allowed_decision_labels:
+  - APPROVED
+  - NEEDS_REVIEW
+  - REJECTED
+allowed_finding_labels:
+  - PASS
+  - WARNING
+  - FAIL

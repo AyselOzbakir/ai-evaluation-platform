@@ -1,0 +1,514 @@
+[
+  {
+    "id": "report-review-001",
+    "system": "report-reviewer",
+    "input": {
+      "report_text": "Learning outcomes were achieved through documented software testing activities and skills gained.",
+      "journal_text": "Week 1 Monday: testing tasks. Week 2 Wednesday: reviewed results."
+    },
+    "expected_output": {
+      "status": "APPROVED",
+      "findings": {
+        "Learning Outcomes Report": "PASS",
+        "Internship Journal": "PASS",
+        "Journal Dates": "PASS",
+        "Document Consistency": "PASS"
+      }
+    },
+    "metadata": {
+      "dataset_version": "report-reviewer-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "complete_consistent"
+    }
+  },
+  {
+    "id": "report-review-002",
+    "system": "report-reviewer",
+    "input": {
+      "report_text": "The internship report describes learning outcomes, skills acquired, and a signature.",
+      "journal_text": "Week 1 Monday: built a test plan. Week 2 Friday: improved the test plan."
+    },
+    "expected_output": {
+      "status": "APPROVED",
+      "findings": {
+        "Learning Outcomes Report": "PASS",
+        "Internship Journal": "PASS",
+        "Signature Evidence": "PASS"
+      }
+    },
+    "metadata": {
+      "dataset_version": "report-reviewer-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "signature_evidence_present"
+    }
+  },
+  {
+    "id": "report-review-003",
+    "system": "report-reviewer",
+    "input": {
+      "report_text": "Learning outcomes and competencies developed are described in this complete report.",
+      "journal_text": "Week 1 Tuesday: analyzed requirements. Week 3 Thursday: delivered documentation."
+    },
+    "expected_output": {
+      "status": "APPROVED",
+      "findings": { "Document Consistency": "PASS", "Journal Dates": "PASS" }
+    },
+    "metadata": {
+      "dataset_version": "report-reviewer-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "complete_consistent"
+    }
+  },
+  {
+    "id": "report-review-004",
+    "system": "report-reviewer",
+    "input": {
+      "report_text": "The report explains outcomes achieved, skills gained, and signed completion evidence.",
+      "journal_text": "Monday: implemented a feature. Friday: tested the feature."
+    },
+    "expected_output": {
+      "status": "APPROVED",
+      "findings": {
+        "Learning Outcomes Report": "PASS",
+        "Signature Evidence": "PASS"
+      }
+    },
+    "metadata": {
+      "dataset_version": "report-reviewer-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "signature_evidence_present"
+    }
+  },
+  {
+    "id": "report-review-005",
+    "system": "report-reviewer",
+    "input": {
+      "report_text": "This report explains competencies developed during the internship and the signature is present.",
+      "journal_text": "Week 1 Monday: completed activities. Week 2 Monday: reviewed activities."
+    },
+    "expected_output": {
+      "status": "APPROVED",
+      "findings": {
+        "Learning Outcomes Report": "PASS",
+        "Internship Journal": "PASS"
+      }
+    },
+    "metadata": {
+      "dataset_version": "report-reviewer-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "complete_consistent"
+    }
+  },
+  {
+    "id": "report-review-006",
+    "system": "report-reviewer",
+    "input": {
+      "report_text": "A short report.",
+      "journal_text": "Week 1 Monday: one activity."
+    },
+    "expected_output": {
+      "status": "NEEDS_REVIEW",
+      "findings": {
+        "Learning Outcomes Report": "FAIL",
+        "Internship Journal": "FAIL"
+      }
+    },
+    "metadata": {
+      "dataset_version": "report-reviewer-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "short_report"
+    }
+  },
+  {
+    "id": "report-review-007",
+    "system": "report-reviewer",
+    "input": {
+      "report_text": "The report describes skills gained and outcomes achieved with enough detail for review.",
+      "journal_text": "One brief activity."
+    },
+    "expected_output": {
+      "status": "NEEDS_REVIEW",
+      "findings": { "Internship Journal": "FAIL", "Journal Dates": "FAIL" }
+    },
+    "metadata": {
+      "dataset_version": "report-reviewer-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "short_journal"
+    }
+  },
+  {
+    "id": "report-review-008",
+    "system": "report-reviewer",
+    "input": {
+      "report_text": "The report describes a developed competency and learning outcome.",
+      "journal_text": "Activities were completed during the internship."
+    },
+    "expected_output": {
+      "status": "NEEDS_REVIEW",
+      "findings": { "Journal Dates": "FAIL", "Internship Journal": "FAIL" }
+    },
+    "metadata": {
+      "dataset_version": "report-reviewer-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "missing_dates"
+    }
+  },
+  {
+    "id": "report-review-009",
+    "system": "report-reviewer",
+    "input": {
+      "report_text": "The report describes a database competency and skills gained during the internship.",
+      "journal_text": "Week 1 Monday: unrelated administrative task. Week 2 Friday: unrelated filing task."
+    },
+    "expected_output": {
+      "status": "NEEDS_REVIEW",
+      "findings": { "Document Consistency": "WARNING", "Journal Dates": "PASS" }
+    },
+    "metadata": {
+      "dataset_version": "report-reviewer-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "weak_overlap"
+    }
+  },
+  {
+    "id": "report-review-010",
+    "system": "report-reviewer",
+    "input": {
+      "report_text": "Learning outcomes were achieved and the report contains a signed approval section.",
+      "journal_text": "Week 1 Monday: completed work. Week 2 Tuesday: completed more work."
+    },
+    "expected_output": {
+      "status": "NEEDS_REVIEW",
+      "findings": {
+        "Signature Evidence": "PASS",
+        "Document Consistency": "WARNING"
+      }
+    },
+    "metadata": {
+      "dataset_version": "report-reviewer-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "mixed_findings"
+    }
+  },
+  {
+    "id": "report-review-011",
+    "system": "report-reviewer",
+    "input": {
+      "report_text": "The report discusses an outcome but has limited detail.",
+      "journal_text": "Week 1 Monday: worked on a task. Week 1 Tuesday: reviewed a task."
+    },
+    "expected_output": {
+      "status": "NEEDS_REVIEW",
+      "findings": {
+        "Learning Outcomes Report": "WARNING",
+        "Document Consistency": "WARNING"
+      }
+    },
+    "metadata": {
+      "dataset_version": "report-reviewer-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "mixed_findings"
+    }
+  },
+  {
+    "id": "report-review-012",
+    "system": "report-reviewer",
+    "input": {
+      "report_text": "Learning outcomes are described but there is no signature evidence.",
+      "journal_text": "Week 1 Monday: activity one. Week 2 Monday: activity two."
+    },
+    "expected_output": {
+      "status": "NEEDS_REVIEW",
+      "findings": { "Signature Evidence": "WARNING", "Journal Dates": "PASS" }
+    },
+    "metadata": {
+      "dataset_version": "report-reviewer-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "signature_evidence_absent"
+    }
+  },
+  {
+    "id": "report-review-013",
+    "system": "report-reviewer",
+    "input": {
+      "report_text": "The report contains outcomes achieved and meaningful skills gained.",
+      "journal_text": "Week 1: task. Week 2: task. Week 3: task."
+    },
+    "expected_output": {
+      "status": "NEEDS_REVIEW",
+      "findings": { "Document Consistency": "WARNING", "Journal Dates": "PASS" }
+    },
+    "metadata": {
+      "dataset_version": "report-reviewer-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "weak_overlap"
+    }
+  },
+  {
+    "id": "report-review-014",
+    "system": "report-reviewer",
+    "input": {
+      "report_text": "A report with learning outcome language but insufficient supporting content.",
+      "journal_text": "Monday: brief note."
+    },
+    "expected_output": {
+      "status": "NEEDS_REVIEW",
+      "findings": {
+        "Learning Outcomes Report": "FAIL",
+        "Journal Dates": "FAIL",
+        "Internship Journal": "FAIL"
+      }
+    },
+    "metadata": {
+      "dataset_version": "report-reviewer-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "mixed_findings"
+    }
+  },
+  {
+    "id": "report-review-015",
+    "system": "report-reviewer",
+    "input": {
+      "report_text": "This is a short report without enough evidence.",
+      "journal_text": "Week 1 Monday: short entry. Week 2 Friday: short entry."
+    },
+    "expected_output": {
+      "status": "NEEDS_REVIEW",
+      "findings": {
+        "Learning Outcomes Report": "FAIL",
+        "Journal Dates": "PASS"
+      }
+    },
+    "metadata": {
+      "dataset_version": "report-reviewer-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "short_report"
+    }
+  },
+  {
+    "id": "report-review-016",
+    "system": "report-reviewer",
+    "input": {
+      "report_text": "The report has no meaningful learning outcomes or competency evidence.",
+      "journal_text": "No useful journal content."
+    },
+    "expected_output": {
+      "status": "REJECTED",
+      "findings": {
+        "Learning Outcomes Report": "FAIL",
+        "Internship Journal": "FAIL",
+        "Journal Dates": "FAIL"
+      }
+    },
+    "metadata": {
+      "dataset_version": "report-reviewer-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "rejected_incomplete"
+    }
+  },
+  {
+    "id": "report-review-017",
+    "system": "report-reviewer",
+    "input": {
+      "report_text": "The report is too short.",
+      "journal_text": "The journal is also too short."
+    },
+    "expected_output": {
+      "status": "REJECTED",
+      "findings": {
+        "Learning Outcomes Report": "FAIL",
+        "Internship Journal": "FAIL",
+        "Document Consistency": "FAIL"
+      }
+    },
+    "metadata": {
+      "dataset_version": "report-reviewer-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "rejected_incomplete"
+    }
+  },
+  {
+    "id": "report-review-018",
+    "system": "report-reviewer",
+    "input": {
+      "report_text": "The report claims advanced outcomes with no supporting evidence.",
+      "journal_text": "Week 1 Monday: unrelated note."
+    },
+    "expected_output": {
+      "status": "REJECTED",
+      "findings": { "Document Consistency": "FAIL", "Journal Dates": "FAIL" }
+    },
+    "metadata": {
+      "dataset_version": "report-reviewer-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "weak_overlap"
+    }
+  },
+  {
+    "id": "report-review-019",
+    "system": "report-reviewer",
+    "input": {
+      "report_text": "No outcomes are documented and no signature is visible.",
+      "journal_text": "No dated activities are present."
+    },
+    "expected_output": {
+      "status": "REJECTED",
+      "findings": {
+        "Learning Outcomes Report": "FAIL",
+        "Signature Evidence": "WARNING",
+        "Journal Dates": "FAIL"
+      }
+    },
+    "metadata": {
+      "dataset_version": "report-reviewer-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "signature_evidence_absent"
+    }
+  },
+  {
+    "id": "report-review-020",
+    "system": "report-reviewer",
+    "input": {
+      "report_text": "The report is incomplete and lacks outcome evidence.",
+      "journal_text": "Week 1 Monday: one entry."
+    },
+    "expected_output": {
+      "status": "REJECTED",
+      "findings": {
+        "Learning Outcomes Report": "FAIL",
+        "Internship Journal": "FAIL",
+        "Document Consistency": "FAIL"
+      }
+    },
+    "metadata": {
+      "dataset_version": "report-reviewer-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "rejected_incomplete"
+    }
+  },
+  {
+    "id": "report-review-021",
+    "system": "report-reviewer",
+    "input": {
+      "report_text": "Skills gained and outcomes achieved are clearly explained with signed evidence.",
+      "journal_text": "Week 1 Monday: built a prototype. Week 2 Wednesday: tested the prototype."
+    },
+    "expected_output": {
+      "status": "APPROVED",
+      "findings": {
+        "Learning Outcomes Report": "PASS",
+        "Signature Evidence": "PASS",
+        "Journal Dates": "PASS"
+      }
+    },
+    "metadata": {
+      "dataset_version": "report-reviewer-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "complete_consistent"
+    }
+  },
+  {
+    "id": "report-review-022",
+    "system": "report-reviewer",
+    "input": {
+      "report_text": "The report explains competencies developed and includes a signature.",
+      "journal_text": "Week 1 Tuesday: designed a workflow. Week 3 Thursday: improved the workflow."
+    },
+    "expected_output": {
+      "status": "APPROVED",
+      "findings": {
+        "Learning Outcomes Report": "PASS",
+        "Signature Evidence": "PASS",
+        "Document Consistency": "PASS"
+      }
+    },
+    "metadata": {
+      "dataset_version": "report-reviewer-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "signature_evidence_present"
+    }
+  },
+  {
+    "id": "report-review-023",
+    "system": "report-reviewer",
+    "input": {
+      "report_text": "The report describes learning outcomes achieved during practical work.",
+      "journal_text": "Week 1 Monday: practical work. Week 2 Friday: documented practical work."
+    },
+    "expected_output": {
+      "status": "NEEDS_REVIEW",
+      "findings": { "Signature Evidence": "WARNING", "Journal Dates": "PASS" }
+    },
+    "metadata": {
+      "dataset_version": "report-reviewer-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "signature_evidence_absent"
+    }
+  },
+  {
+    "id": "report-review-024",
+    "system": "report-reviewer",
+    "input": {
+      "report_text": "The report describes skills gained and outcomes achieved.",
+      "journal_text": "Week 1 Monday: activity. Week 2 Tuesday: activity."
+    },
+    "expected_output": {
+      "status": "NEEDS_REVIEW",
+      "findings": {
+        "Document Consistency": "WARNING",
+        "Signature Evidence": "WARNING"
+      }
+    },
+    "metadata": {
+      "dataset_version": "report-reviewer-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "mixed_findings"
+    }
+  },
+  {
+    "id": "report-review-025",
+    "system": "report-reviewer",
+    "input": {
+      "report_text": "The report explains a developed competency and includes signed confirmation.",
+      "journal_text": "Week 1 Monday: implemented a task. Week 2 Friday: evaluated the task."
+    },
+    "expected_output": {
+      "status": "APPROVED",
+      "findings": {
+        "Learning Outcomes Report": "PASS",
+        "Signature Evidence": "PASS",
+        "Journal Dates": "PASS"
+      }
+    },
+    "metadata": {
+      "dataset_version": "report-reviewer-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "complete_consistent"
+    }
+  }
+]

@@ -1,0 +1,1 @@
+"""Internship Coordinator integration tests."""
