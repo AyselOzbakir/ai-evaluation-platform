@@ -5,8 +5,8 @@ from fastapi import APIRouter, HTTPException
 from app.core.config import RunConfig
 from app.core.experiment import ExperimentResult
 from app.core.registry import Registry, RegistryError, registry as default_registry
-from app.core.runner import run_experiment
 from app.core.storage import StorageError, list_experiments, load_experiment
+from app.services.evaluation import run_configured_experiment
 
 router = APIRouter()
 
@@ -28,7 +28,7 @@ def systems() -> list[str]:
 @router.post("/evaluations/run", response_model=ExperimentResult)
 def run_evaluation(config: RunConfig) -> ExperimentResult:
     try:
-        return run_experiment(config, get_registry())
+        return run_configured_experiment(config, get_registry())
     except RegistryError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
     except (FileNotFoundError, ValueError) as exc:

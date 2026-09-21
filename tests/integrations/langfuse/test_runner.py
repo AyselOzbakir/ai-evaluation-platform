@@ -89,7 +89,7 @@ def test_disabled_wrapper_preserves_experiment_result_and_writes_disabled_sideca
 
     direct = run_experiment(config, make_registry(), experiment_id="exp-disabled", persist=False)
     assert wrapped.model_dump(exclude={"started_at"}) == direct.model_dump(exclude={"started_at"})
-    sidecar = tmp_path / "artifacts" / "exp-disabled.observability.json"
+    sidecar = tmp_path / "observability" / "exp-disabled.json"
     assert json.loads(sidecar.read_text()) == {
         "experiment_id": "exp-disabled",
         "enabled": False,
@@ -110,7 +110,7 @@ def test_enabled_fake_client_receives_root_lifecycle_and_sidecar(tmp_path, monke
     assert result.experiment_id == "exp-enabled"
     assert client.started[0][1]["experiment_id"] == "exp-enabled"
     sidecar = json.loads(
-        (tmp_path / "artifacts" / "exp-enabled.observability.json").read_text()
+        (tmp_path / "observability" / "exp-enabled.json").read_text()
     )
     assert sidecar == {
         "experiment_id": "exp-enabled",

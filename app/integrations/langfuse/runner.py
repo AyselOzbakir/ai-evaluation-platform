@@ -74,7 +74,7 @@ def _predict_experiment_id(system: str, label: str) -> str:
 
 def _write_sidecar(experiment: ExperimentResult, client: Any) -> None:
     artifact_dir = Path(os.environ.get("EXPERIMENT_ARTIFACT_DIR", "artifacts/experiments"))
-    sidecar_path = artifact_dir / f"{experiment.experiment_id}.observability.json"
+    sidecar_path = artifact_dir.parent / "observability" / f"{experiment.experiment_id}.json"
     sidecar_path.parent.mkdir(parents=True, exist_ok=True)
     trace_id = getattr(client, "trace_id", None)
     sidecar_path.write_text(
