@@ -332,6 +332,19 @@
         color: var(--text-muted);
       }
 
+      .trace-link {
+        color: var(--accent);
+        font-size: 0.78rem;
+        font-weight: 600;
+        text-decoration: none;
+      }
+
+      .trace-link:hover,
+      .trace-link:focus-visible {
+        color: #eda06d;
+        text-decoration: underline;
+      }
+
       ul {
         color: var(--text-muted);
         margin: 0;
@@ -506,6 +519,7 @@
                 <th>Application Version</th>
                 <th>Started At</th>
                 <th>Status</th>
+                <th>Trace</th>
               </tr>
             </thead>
 
@@ -528,6 +542,16 @@
               Overall:
               <span id="overall"></span>
             </p>
+
+            <a
+              class="trace-link"
+              id="candidateTrace"
+              href="#"
+              target="_blank"
+              rel="noopener noreferrer"
+              hidden
+              >View Candidate Trace</a
+            >
           </div>
         </div>
 
@@ -625,7 +649,21 @@
               throw new Error(`Unable to load ${experimentId}.`);
             }
 
-            return response.json();
+            const experiment = await response.json();
+            let observability = { experiment_id: experimentId, enabled: false };
+
+            try {
+              const observabilityResponse = await fetch(
+                `/dashboard/observability/${encodeURIComponent(experimentId)}`,
+              );
+              if (observabilityResponse.ok) {
+                observability = await observabilityResponse.json();
+              }
+            } catch (error) {
+              // Observability is optional and must not hide experiment history.
+            }
+
+            return { experiment, observability };
           }),
         );
 
@@ -641,8 +679,8 @@
         });
 
         successfulDetails.sort((left, right) => {
-          const rightTime = Date.parse(right.started_at || "");
-          const leftTime = Date.parse(left.started_at || "");
+          const rightTime = Date.parse(right.experiment.started_at || "");
+          const leftTime = Date.parse(left.experiment.started_at || "");
 
           if (Number.isNaN(leftTime)) return 1;
           if (Number.isNaN(rightTime)) return -1;
@@ -650,8 +688,8 @@
           return rightTime - leftTime;
         });
 
-        successfulDetails.forEach((experiment) => {
-          renderHistoryExperiment(history, experiment);
+        successfulDetails.forEach((record) => {
+          renderHistoryExperiment(history, record);
         });
 
         if (successfulDetails.length === 0) {
@@ -680,7 +718,8 @@
         });
       }
 
-      function renderHistoryExperiment(history, experiment) {
+      function renderHistoryExperiment(history, record) {
+        const experiment = record.experiment;
         const row = document.createElement("tr");
 
         [
@@ -704,6 +743,10 @@
         status.appendChild(statusBadge);
         row.appendChild(status);
 
+        const trace = document.createElement("td");
+        renderTraceLink(trace, record.observability, "View Trace");
+        row.appendChild(trace);
+
         history.appendChild(row);
       }
 
@@ -720,7 +763,27 @@
         const status = document.createElement("td");
         status.textContent = "Unavailable";
         row.appendChild(status);
+
+        const trace = document.createElement("td");
+        trace.textContent = "—";
+        row.appendChild(trace);
         history.appendChild(row);
+      }
+
+      function renderTraceLink(container, observability, label) {
+        const traceUrl = observability && observability.langfuse_trace_url;
+        if (!traceUrl) {
+          container.textContent = "—";
+          return;
+        }
+
+        const link = document.createElement("a");
+        link.className = "trace-link";
+        link.href = traceUrl;
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+        link.textContent = label;
+        container.appendChild(link);
       }
 
       async function compareExperiments() {
@@ -741,6 +804,25 @@
         }
 
         const data = await response.json();
+
+        const candidateTrace = document.getElementById("candidateTrace");
+        candidateTrace.hidden = true;
+        candidateTrace.removeAttribute("href");
+
+        try {
+          const observabilityResponse = await fetch(
+            `/dashboard/observability/${encodeURIComponent(candidate)}`,
+          );
+          if (observabilityResponse.ok) {
+            const observability = await observabilityResponse.json();
+            if (observability.langfuse_trace_url) {
+              candidateTrace.href = observability.langfuse_trace_url;
+              candidateTrace.hidden = false;
+            }
+          }
+        } catch (error) {
+          // Candidate trace visibility is optional.
+        }
 
         document.getElementById("results").style.display = "block";
 
