@@ -3,8 +3,9 @@ import json
 from fastapi.testclient import TestClient
 
 from app.bootstrap import register_default_integrations
+from app.core.experiment import ExperimentResult
 from app.core.registry import Registry, registry
-from app.core.storage import list_experiments
+from app.core.storage import list_experiments, save_experiment
 from app.main import app
 
 
@@ -98,3 +99,28 @@ def test_observability_sidecar_does_not_pollute_experiment_listing(tmp_path, mon
     )
 
     assert list_experiments(experiment_dir) == ["exp-1"]
+
+
+def test_dashboard_experiment_listing_exposes_both_unique_runs(tmp_path, monkeypatch):
+    monkeypatch.setenv("EXPERIMENT_ARTIFACT_DIR", str(tmp_path / "experiments"))
+    for experiment_id, application_version in (
+        ("2026-09-22_120000000001_report-reviewer_run", "demo-v1"),
+        ("2026-09-22_120000000002_report-reviewer_run", "demo-v2"),
+    ):
+        save_experiment(
+            ExperimentResult(
+                experiment_id=experiment_id,
+                system="report-reviewer",
+                dataset_version="report-reviewer-v1",
+                application_version=application_version,
+                started_at="2026-09-22T12:00:00Z",
+            )
+        )
+
+    response = TestClient(app).get("/experiments")
+
+    assert response.status_code == 200
+    assert response.json() == [
+        "2026-09-22_120000000001_report-reviewer_run",
+        "2026-09-22_120000000002_report-reviewer_run",
+    ]
