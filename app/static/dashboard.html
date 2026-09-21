@@ -345,6 +345,27 @@
         text-decoration: underline;
       }
 
+      .human-review-form {
+        display: grid;
+        gap: 10px;
+        grid-template-columns: 1fr 120px 1fr auto;
+      }
+
+      .human-review-form input,
+      .human-review-form textarea {
+        background: var(--surface-raised);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        color: var(--text);
+        font: inherit;
+        min-height: 42px;
+        padding: 9px 12px;
+      }
+
+      .human-review-form textarea {
+        resize: vertical;
+      }
+
       ul {
         color: var(--text-muted);
         margin: 0;
@@ -520,6 +541,7 @@
                 <th>Started At</th>
                 <th>Status</th>
                 <th>Trace</th>
+                <th>Human Reviews</th>
               </tr>
             </thead>
 
@@ -553,6 +575,29 @@
               >View Candidate Trace</a
             >
           </div>
+        </div>
+
+        <div class="card">
+          <p class="section-kicker">Human review</p>
+          <h2>Submit Review</h2>
+          <form class="human-review-form" onsubmit="submitHumanReview(event)">
+            <input id="humanReviewer" placeholder="Reviewer name" required />
+            <select id="humanCase" required>
+              <option value="">Select case</option>
+            </select>
+            <input
+              id="humanScore"
+              type="number"
+              min="0"
+              max="1"
+              step="0.01"
+              placeholder="Score"
+            />
+            <input id="humanLabel" placeholder="Label" />
+            <button type="submit">Submit</button>
+            <textarea id="humanComment" placeholder="Comment"></textarea>
+          </form>
+          <p id="humanReviewMessage"></p>
         </div>
 
         <div class="card">
@@ -651,6 +696,7 @@
 
             const experiment = await response.json();
             let observability = { experiment_id: experimentId, enabled: false };
+            let humanEvaluations = [];
 
             try {
               const observabilityResponse = await fetch(
@@ -663,7 +709,17 @@
               // Observability is optional and must not hide experiment history.
             }
 
-            return { experiment, observability };
+            try {
+              const humanResponse = await fetch(
+                `/human-evaluations/${encodeURIComponent(experimentId)}`,
+              );
+              if (humanResponse.ok)
+                humanEvaluations = await humanResponse.json();
+            } catch (error) {
+              // Human review is optional and must not hide experiment history.
+            }
+
+            return { experiment, observability, humanEvaluations };
           }),
         );
 
@@ -747,6 +803,10 @@
         renderTraceLink(trace, record.observability, "View Trace");
         row.appendChild(trace);
 
+        const humanReviews = document.createElement("td");
+        humanReviews.textContent = record.humanEvaluations.length;
+        row.appendChild(humanReviews);
+
         history.appendChild(row);
       }
 
@@ -767,6 +827,9 @@
         const trace = document.createElement("td");
         trace.textContent = "—";
         row.appendChild(trace);
+        const humanReviews = document.createElement("td");
+        humanReviews.textContent = "0";
+        row.appendChild(humanReviews);
         history.appendChild(row);
       }
 
@@ -804,6 +867,9 @@
         }
 
         const data = await response.json();
+        window.currentCandidateId = candidate;
+        await populateHumanCases(candidate);
+        refreshHumanReviewCount(candidate);
 
         const candidateTrace = document.getElementById("candidateTrace");
         candidateTrace.hidden = true;
@@ -901,6 +967,65 @@
         );
 
         renderList("resolvedCases", data.resolved_cases, "No resolved cases.");
+      }
+
+      async function refreshHumanReviewCount(experimentId) {
+        try {
+          const response = await fetch(
+            `/human-evaluations/${encodeURIComponent(experimentId)}`,
+          );
+          if (response.ok) {
+            const reviews = await response.json();
+            document.getElementById("humanReviewMessage").innerText =
+              `${reviews.length} review(s) recorded for the selected candidate.`;
+          }
+        } catch (error) {
+          // Human review is optional.
+        }
+      }
+
+      async function populateHumanCases(experimentId) {
+        const selector = document.getElementById("humanCase");
+        selector.replaceChildren();
+        try {
+          const response = await fetch(
+            `/experiments/${encodeURIComponent(experimentId)}`,
+          );
+          if (!response.ok) return;
+          const experiment = await response.json();
+          experiment.case_results.forEach((caseResult) => {
+            const option = document.createElement("option");
+            option.value = caseResult.case_id;
+            option.textContent = caseResult.case_id;
+            selector.appendChild(option);
+          });
+        } catch (error) {
+          // Case selection is unavailable until the experiment can be loaded.
+        }
+      }
+
+      async function submitHumanReview(event) {
+        event.preventDefault();
+        const experimentId =
+          window.currentCandidateId ||
+          document.getElementById("candidate").value;
+        const scoreValue = document.getElementById("humanScore").value;
+        const response = await fetch("/human-evaluations", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            experiment_id: experimentId,
+            case_id: document.getElementById("humanCase").value,
+            evaluator_name: document.getElementById("humanReviewer").value,
+            score: scoreValue ? Number(scoreValue) : null,
+            label: document.getElementById("humanLabel").value || null,
+            comment: document.getElementById("humanComment").value || null,
+          }),
+        });
+        const message = document.getElementById("humanReviewMessage");
+        message.innerText = response.ok
+          ? "Human review recorded."
+          : "Unable to record human review for this case.";
       }
 
       function renderList(elementId, values, emptyText) {

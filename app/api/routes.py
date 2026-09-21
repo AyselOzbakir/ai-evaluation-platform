@@ -7,6 +7,12 @@ from app.core.experiment import ExperimentResult
 from app.core.registry import Registry, RegistryError, registry as default_registry
 from app.core.storage import StorageError, list_experiments, load_experiment
 from app.services.evaluation import run_configured_experiment
+from app.services.human_evaluation import (
+    HumanEvaluationResponse,
+    HumanEvaluationSubmission,
+    create_human_evaluation,
+    list_human_evaluations,
+)
 
 router = APIRouter()
 
@@ -48,6 +54,31 @@ def list_all_experiments() -> list[str]:
 @router.get("/experiments/{experiment_id}", response_model=ExperimentResult)
 def get_experiment(experiment_id: str) -> ExperimentResult:
     return _load_or_404(experiment_id)
+
+
+@router.post(
+    "/human-evaluations",
+    response_model=HumanEvaluationResponse,
+    status_code=201,
+)
+def submit_human_evaluation(
+    submission: HumanEvaluationSubmission,
+) -> HumanEvaluationResponse:
+    try:
+        return create_human_evaluation(submission)
+    except (FileNotFoundError, ValueError) as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+
+@router.get(
+    "/human-evaluations/{experiment_id}",
+    response_model=list[HumanEvaluationResponse],
+)
+def get_human_evaluations(experiment_id: str) -> list[HumanEvaluationResponse]:
+    try:
+        return list_human_evaluations(experiment_id)
+    except (FileNotFoundError, ValueError) as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
 
 
 def _load_or_404(experiment_id: str) -> ExperimentResult:
