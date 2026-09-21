@@ -65,6 +65,48 @@ configs/          YAML run configs (see configs/example.yaml)
 `GET /health`, `GET /systems`, `POST /evaluations/run`, `GET /evaluations/{id}`,
 `GET /experiments`, `GET /experiments/{id}`.
 
+### Human Evaluations
+
+Submit an additive human review for an existing experiment case:
+
+```bash
+curl -X POST http://127.0.0.1:8000/human-evaluations \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "experiment_id": "<experiment-id>",
+    "case_id": "<case-id>",
+    "evaluator_name": "reviewer",
+    "score": 0.85,
+    "passed": true,
+    "label": "approved",
+    "comment": "Reviewed by a human evaluator."
+  }'
+```
+
+Read reviews with `GET /human-evaluations/{experiment_id}`. Human reviews are retained
+separately from deterministic and LLM evaluator results. Without `DATABASE_URL`, local JSON
+fallback storage is used under `artifacts/human_evaluations/`.
+
+## PostgreSQL Persistence
+
+PostgreSQL persistence is optional. Configure a SQLAlchemy-compatible PostgreSQL URL:
+
+```bash
+export DATABASE_URL="postgresql+psycopg://user:password@localhost:5432/ai_evaluation"
+```
+
+When configured, experiment results and human evaluations are written to PostgreSQL in addition
+to the existing JSON artifacts. The application still starts without `DATABASE_URL`; no database
+connection is created during startup. Initialize the schema explicitly with:
+
+```bash
+DATABASE_URL="$DATABASE_URL" python3 -c \
+  'from app.persistence.database import create_repository; create_repository()'
+```
+
+The schema contains `experiments` and `human_evaluations` tables. SQLite is used only in unit tests
+for repository behavior; production PostgreSQL remains the supported database backend.
+
 ## Experiment Reporting
 
 Person 5's comparison layer compares a baseline experiment with a candidate experiment. It reports
