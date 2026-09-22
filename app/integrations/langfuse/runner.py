@@ -35,6 +35,12 @@ def run_experiment_with_langfuse(
         system=config.system,
         dataset_version=config.dataset_version,
         application_version=config.application_version,
+        model_version=config.model_version,
+        model_name=config.model_name,
+        prompt_version=config.prompt_version,
+        config_version=config.config_version,
+        evaluator_names=list(config.evaluators),
+        evaluator_versions=config.evaluator_versions or None,
     )
     dataset_name = None
     if os.environ.get("LANGFUSE_DATASET_PREFIX"):

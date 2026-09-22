@@ -16,6 +16,8 @@ Example (see configs/example.yaml):
 from pathlib import Path
 
 import yaml
+from typing import Any
+
 from pydantic import BaseModel, Field, ValidationError
 
 
@@ -28,6 +30,12 @@ class RunConfig(BaseModel):
     dataset_version: str
     dataset_path: str
     application_version: str = "unknown"
+    model_version: str | None = None
+    model_name: str | None = None
+    prompt_version: str | None = None
+    config_version: str | None = None
+    evaluator_versions: dict[str, str] = Field(default_factory=dict)
+    metadata: dict[str, Any] = Field(default_factory=dict)
     evaluators: list[str] = Field(default_factory=list)
     thresholds: dict[str, float] = Field(default_factory=dict)
 

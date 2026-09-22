@@ -220,3 +220,5 @@ __marimo__/
 # generated experiment result JSON
 artifacts/experiments/*.json
 !artifacts/experiments/.gitkeep
+artifacts/observability/
+artifacts/human_evaluations/

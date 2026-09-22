@@ -1,4 +1,4 @@
-"""FastAPI app entrypoint. Person 1 registers real adapters/evaluators here once the relevant PRs merge."""
+"""FastAPI application entrypoint."""
 
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
@@ -11,8 +11,3 @@ register_default_integrations()
 app.mount("/static", StaticFiles(directory="app/static"), name="static")
 app.include_router(router)
 app.include_router(reporting_router)
-
-# Real adapters/evaluators are registered here as each system's module lands, e.g.:
-#   from app.systems.ata_rag.adapter import ATARagAdapter
-#   from app.core.registry import registry
-#   registry.register_adapter("ata-rag", ATARagAdapter())

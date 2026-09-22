@@ -11,6 +11,14 @@ METADATA_KEYS = (
     "application_version",
     "case_id",
     "evaluator",
+    "model_version",
+    "model_name",
+    "prompt_version",
+    "config_version",
+    "evaluator_names",
+    "evaluator_versions",
+    "langfuse_dataset_name",
+    "langfuse_dataset_version",
 )
 
 

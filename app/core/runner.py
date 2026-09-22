@@ -62,6 +62,19 @@ def run_experiment(
 
     aggregate_metrics = _aggregate(case_results)
     passed = _passed(case_results, aggregate_metrics, config.thresholds)
+    experiment_metadata = dict(config.metadata)
+    for field in (
+        "model_version",
+        "model_name",
+        "prompt_version",
+        "config_version",
+    ):
+        value = getattr(config, field)
+        if value is not None:
+            experiment_metadata[field] = value
+    experiment_metadata["evaluator_names"] = list(config.evaluators)
+    if config.evaluator_versions:
+        experiment_metadata["evaluator_versions"] = config.evaluator_versions
 
     experiment = ExperimentResult(
         experiment_id=experiment_id,
@@ -72,6 +85,7 @@ def run_experiment(
         case_results=case_results,
         aggregate_metrics=aggregate_metrics,
         passed=passed,
+        metadata=experiment_metadata,
     )
 
     if persist:
