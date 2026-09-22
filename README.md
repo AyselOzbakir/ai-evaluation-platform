@@ -107,6 +107,32 @@ DATABASE_URL="$DATABASE_URL" python3 -c \
 The schema contains `experiments` and `human_evaluations` tables. SQLite is used only in unit tests
 for repository behavior; production PostgreSQL remains the supported database backend.
 
+## Langfuse Datasets
+
+The Langfuse integration can publish local golden datasets while preserving each case's stable ID:
+
+```bash
+python -m app.integrations.langfuse.datasets \
+  --system ata-rag \
+  --dataset-path datasets/ata_rag/ata-rag-v1.json \
+  --dataset-version ata-rag-v1
+```
+
+Set `LANGFUSE_DATASET_PREFIX` to control the hosted dataset name, for example
+`golden` produces `golden-ata-rag`. The publisher uses `id=<case id>` for Langfuse dataset items,
+so rerunning the command is duplicate-safe/upsert-oriented. It publishes only safe dataset
+metadata such as system, version, split, category, and synthetic status.
+
+When `LANGFUSE_DATASET_PREFIX` is configured and Langfuse is enabled, evaluation runs fetch the
+matching hosted dataset and call the Langfuse v4 `dataset.run_experiment(...)` API. The task
+reconstructs each local `EvaluationCase`, executes the registered adapter/evaluators once, and
+returns the captured result to Langfuse. The resulting `dataset_run_id` and `dataset_run_url` are
+stored in the local experiment metadata and observability sidecar. If the dataset is unavailable,
+the SDK is missing, or credentials fail, execution falls back to the normal local runner.
+
+Langfuse remains optional. Without the SDK or credentials, normal local evaluation and JSON
+artifacts continue to work; dataset publishing exits clearly with a configuration error.
+
 ## Experiment Reporting
 
 Person 5's comparison layer compares a baseline experiment with a candidate experiment. It reports

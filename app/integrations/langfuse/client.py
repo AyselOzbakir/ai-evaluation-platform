@@ -72,6 +72,18 @@ class LangfuseClient:
     def flush(self) -> None:
         self._sdk_client.flush()
 
+    def create_dataset(self, **kwargs: Any) -> Any:
+        return self._sdk_client.create_dataset(**kwargs)
+
+    def create_dataset_item(self, **kwargs: Any) -> Any:
+        return self._sdk_client.create_dataset_item(**kwargs)
+
+    def get_dataset(self, name: str) -> Any:
+        return self._sdk_client.get_dataset(name)
+
+    def run_dataset_experiment(self, dataset: Any, **kwargs: Any) -> Any:
+        return dataset.run_experiment(**kwargs)
+
 
 class _ObservationHandle:
     def __init__(self, root: LangfuseClient, observation: Any) -> None:

@@ -32,6 +32,9 @@ OBSERVABILITY_FIELDS = {
     "langfuse_trace_id",
     "langfuse_trace_url",
     "langfuse_observation_id",
+    "langfuse_dataset_name",
+    "langfuse_dataset_run_id",
+    "langfuse_dataset_run_url",
 }
 
 

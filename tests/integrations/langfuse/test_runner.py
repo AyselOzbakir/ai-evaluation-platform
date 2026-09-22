@@ -37,10 +37,49 @@ class FakeLangfuse:
 
     def __init__(self):
         self.started = []
+        self.dataset = FakeDataset()
 
     def start_trace(self, name, metadata, input_data=None):
         self.started.append((name, metadata, input_data))
         return FakeTrace()
+
+    def get_dataset(self, name):
+        self.dataset.name = name
+        return self.dataset
+
+    def run_dataset_experiment(self, dataset, **kwargs):
+        return dataset.run_experiment(**kwargs)
+
+
+class FakeDataset:
+    def __init__(self):
+        self.name = None
+        self.calls = []
+
+    def run_experiment(self, **kwargs):
+        self.calls.append(kwargs)
+        item = type(
+            "DatasetItem",
+            (),
+            {
+                "id": "case-1",
+                "input": {},
+                "expected_output": {},
+                "metadata": {"case_id": "case-1", "dataset_version": "v1"},
+            },
+        )()
+        output = kwargs["task"](item=item)
+        for evaluator in kwargs["evaluators"]:
+            evaluator(
+                input=item.input,
+                output=output,
+                expected_output=item.expected_output,
+                metadata=item.metadata,
+            )
+        return {
+            "dataset_run_id": "dataset-run-1",
+            "dataset_run_url": "https://langfuse.example/dataset-run-1",
+        }
 
 
 class DisabledFake:
@@ -133,3 +172,23 @@ def test_wrapper_generated_id_matches_sidecar_and_artifact(tmp_path, monkeypatch
     assert artifact.exists()
     assert sidecar.exists()
     assert json.loads(sidecar.read_text())["experiment_id"] == result.experiment_id
+
+
+def test_wrapper_associates_dataset_run_when_prefix_is_configured(tmp_path, monkeypatch):
+    monkeypatch.setenv("EXPERIMENT_ARTIFACT_DIR", str(tmp_path / "artifacts"))
+    monkeypatch.setenv("LANGFUSE_DATASET_PREFIX", "golden")
+    client = FakeLangfuse()
+
+    result = run_experiment_with_langfuse(
+        make_config(tmp_path),
+        make_registry(),
+        experiment_id="dataset-exp",
+        client=client,
+        persist=False,
+    )
+
+    assert result.experiment_id == "dataset-exp"
+    assert client.dataset.name == "golden-fake"
+    assert client.dataset.calls[0]["run_name"] == "dataset-exp"
+    assert result.metadata["langfuse_dataset_run_id"] == "dataset-run-1"
+    assert result.metadata["langfuse_dataset_run_url"] == "https://langfuse.example/dataset-run-1"
