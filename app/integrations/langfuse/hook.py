@@ -28,6 +28,17 @@ class LangfuseObservabilityHook:
                 **self.experiment_context,
                 case_id=case.id,
             )
+            if output is not None:
+                for field in (
+                    "input_tokens",
+                    "output_tokens",
+                    "total_tokens",
+                    "cost_usd",
+                    "model_name",
+                ):
+                    value = output.metadata.get(field)
+                    if value is not None:
+                        case_metadata[f"output_{field}"] = value
             case_observation = self.client.start_observation(
                 name=f"case:{case.id}",
                 metadata=case_metadata,

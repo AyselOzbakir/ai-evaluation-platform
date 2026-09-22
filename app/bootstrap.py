@@ -2,6 +2,7 @@
 
 from app.core.registry import Registry, registry as default_registry
 from app.systems.ata_rag import ATARagAdapter, default_evaluators
+from app.systems.ata_rag.usage_evaluators import usage_evaluators
 from app.systems.internship import (
     CoordinatorDecisionEvaluator,
     CoordinatorEvidenceEvaluator,
@@ -36,6 +37,7 @@ def register_default_integrations(registry: Registry = default_registry) -> Regi
 
     evaluators = [
         *default_evaluators(),
+        *usage_evaluators(),
         CoordinatorDecisionEvaluator(),
         CoordinatorEvidenceEvaluator(),
         CoordinatorSchemaEvaluator(),
