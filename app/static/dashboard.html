@@ -574,6 +574,15 @@
               hidden
               >View Candidate Trace</a
             >
+            <a
+              class="trace-link"
+              id="candidateDatasetRun"
+              href="#"
+              target="_blank"
+              rel="noopener noreferrer"
+              hidden
+              >View Langfuse Experiment</a
+            >
           </div>
         </div>
 
@@ -874,6 +883,11 @@
         const candidateTrace = document.getElementById("candidateTrace");
         candidateTrace.hidden = true;
         candidateTrace.removeAttribute("href");
+        const candidateDatasetRun = document.getElementById(
+          "candidateDatasetRun",
+        );
+        candidateDatasetRun.hidden = true;
+        candidateDatasetRun.removeAttribute("href");
 
         try {
           const observabilityResponse = await fetch(
@@ -884,6 +898,10 @@
             if (observability.langfuse_trace_url) {
               candidateTrace.href = observability.langfuse_trace_url;
               candidateTrace.hidden = false;
+            }
+            if (observability.langfuse_dataset_run_url) {
+              candidateDatasetRun.href = observability.langfuse_dataset_run_url;
+              candidateDatasetRun.hidden = false;
             }
           }
         } catch (error) {
