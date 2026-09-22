@@ -70,6 +70,34 @@ def test_persist_writes_json_file(tmp_path, monkeypatch):
     assert saved["experiment_id"] == experiment.experiment_id
 
 
+def test_optional_version_metadata_is_persisted(tmp_path, monkeypatch):
+    monkeypatch.setenv("EXPERIMENT_ARTIFACT_DIR", str(tmp_path / "artifacts"))
+    dataset_path = _write_dataset(
+        tmp_path,
+        [{"id": "c1", "system": "fake", "input": {"q": "hi"}}],
+    )
+    config = RunConfig(
+        system="fake",
+        dataset_version="v1",
+        dataset_path=dataset_path,
+        evaluators=["fake_exact_match"],
+        model_version="model-v1",
+        model_name="synthetic-model",
+        prompt_version="prompt-v1",
+        config_version="config-v1",
+        evaluator_versions={"fake_exact_match": "evaluator-v1"},
+    )
+
+    experiment = run_experiment(config, _registry())
+    saved = json.loads(
+        (tmp_path / "artifacts" / f"{experiment.experiment_id}.json").read_text()
+    )
+
+    assert saved["metadata"]["model_version"] == "model-v1"
+    assert saved["metadata"]["prompt_version"] == "prompt-v1"
+    assert saved["metadata"]["evaluator_names"] == ["fake_exact_match"]
+
+
 def test_consecutive_runs_create_distinct_retrievable_artifacts(tmp_path, monkeypatch):
     monkeypatch.setenv("EXPERIMENT_ARTIFACT_DIR", str(tmp_path / "artifacts"))
     dataset_path = _write_dataset(

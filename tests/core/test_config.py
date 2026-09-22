@@ -24,6 +24,32 @@ thresholds:
     assert config.application_version == "unknown"
 
 
+def test_optional_version_metadata_is_supported(tmp_path):
+    path = tmp_path / "config.yaml"
+    path.write_text(
+        """
+ system: fake
+ dataset_version: fake-v1
+ dataset_path: datasets/fake/cases.json
+ model_version: model-v2
+ model_name: synthetic-model
+ prompt_version: prompt-v3
+ config_version: config-v4
+ evaluator_versions:
+  fake_exact_match: evaluator-v1
+ metadata:
+  release: demo
+ """,
+        encoding="utf-8",
+    )
+
+    config = load_run_config(path)
+
+    assert config.model_version == "model-v2"
+    assert config.evaluator_versions == {"fake_exact_match": "evaluator-v1"}
+    assert config.metadata == {"release": "demo"}
+
+
 def test_missing_file_raises(tmp_path):
     with pytest.raises(ConfigError):
         load_run_config(tmp_path / "missing.yaml")

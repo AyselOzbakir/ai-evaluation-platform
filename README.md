@@ -27,6 +27,8 @@ app/reporting/    Person 5 - dashboard data
 app/templates/    Person 5 - Jinja2 pages
 datasets/         one JSON dataset per system
 artifacts/experiments/  generated experiment result JSON (gitignored)
+artifacts/observability/  generated Langfuse sidecars (gitignored)
+artifacts/human_evaluations/  local human-review fallback JSON (gitignored)
 configs/          YAML run configs (see configs/example.yaml)
 ```
 
@@ -43,22 +45,15 @@ configs/          YAML run configs (see configs/example.yaml)
 `app/core/experiment.py` defines the on-disk experiment JSON shape (`ExperimentResult`,
 `CaseResult`) that Person 5's dashboard reads.
 
-## How to plug in a new adapter or evaluator
+## Runtime Registration and Execution
 
-1. Implement `SystemAdapter` / `Evaluator` in your own `app/systems/<name>/` or
-   `app/evaluators/<name>/` package. Do not edit `app/core/**`.
-2. Register it (in `app/main.py`, near the existing commented-out examples):
-   ```python
-   from app.core.registry import registry
-   from app.systems.ata_rag.adapter import ATARagAdapter
-   registry.register_adapter("ata-rag", ATARagAdapter())
-   ```
-3. Point a YAML config at it (see `configs/example.yaml`) and either call
-   `app.core.runner.run_experiment(config, registry)` directly, or `POST /evaluations/run` with the
-   config as the JSON body.
-4. Until your real system is ready, write your own tests against the frozen interfaces using a fake
-   adapter/evaluator (see `tests/core/fakes.py` for the pattern) - never block on another person's
-   branch.
+The application bootstraps these adapters and deterministic evaluators from `app/bootstrap.py`:
+`ata-rag`, `internship-coordinator`, `report-reviewer`, and `pdf-signer`. Registration is local
+only and does not contact external services. `POST /evaluations/run` uses the application service,
+which calls the optional Langfuse-aware runner and then persists the normal JSON experiment artifact.
+
+To add a new system, implement `SystemAdapter` / `Evaluator` in `app/systems/<name>/` or
+`app/evaluators/<name>/`, then add its local bootstrap registration without changing the shared core.
 
 ## API
 
@@ -175,6 +170,7 @@ The lightweight static HTML/JavaScript dashboard uses the existing FastAPI endpo
 - Metric baseline, candidate, delta, and improved/regressed/unchanged status.
 - Regression `Gate` and `Reason` details for each metric.
 - Newly failing cases and resolved cases.
+- Optional Langfuse trace and hosted dataset experiment links.
 
 ## Orange PDF Signer Integration
 
@@ -197,8 +193,20 @@ evaluators for signature detection, coordinate matching, and generated PDF outpu
 - `SignatureCoordinateEvaluator`
 - `PDFOutputEvaluator`
 
-Dashboard trace links can be connected once the Langfuse integration exposes its trace URL or
-metadata contract. Langfuse dashboard links are not currently assumed by this reporting layer.
+Langfuse trace and hosted dataset-run links are shown when safe observability sidecars contain
+those URLs; the dashboard remains functional when Langfuse is disabled.
+
+## External Runtime Prerequisites
+
+- ATA RAG: set `ATA_RAG_BASE_URL` and run the external ATA service.
+- Internship Coordinator: set `INTERNSHIP_COORDINATOR_PATH` and optionally
+  `INTERNSHIP_COORDINATOR_PYTHON`.
+- Report Reviewer: set `REPORT_REVIEWER_PATH` and optionally `REPORT_REVIEWER_PYTHON`.
+- PDF Signer: set `PDF_SIGNER_BACKEND_PATH` and optionally `PDF_SIGNER_PYTHON`.
+- Langfuse: configure its `LANGFUSE_*` variables and install dependencies with `uv sync`.
+
+External services are never contacted during application startup; they are used only when an
+evaluation runs.
 
 ## Testing
 
@@ -208,7 +216,14 @@ Run the full test suite with:
 python3 -m pytest -q
 ```
 
-At the time of this implementation, the full suite passes with 49 tests.
+Run `python3 -m pytest -q -rs` to verify the current suite.
+
+## Experiment Metadata
+
+Run configuration accepts optional `model_version`, `model_name`, `prompt_version`,
+`config_version`, `evaluator_versions`, and `metadata` fields. These values are persisted in the
+experiment artifact when supplied and safe version/evaluator fields are propagated to Langfuse.
+Existing requests that omit them remain valid.
 
 ## Experiment JSON shape
 
