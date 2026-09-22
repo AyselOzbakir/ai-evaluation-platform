@@ -83,6 +83,7 @@ def run_experiment(
 def _aggregate(case_results: list[CaseResult]) -> dict[str, float]:
     scores_by_evaluator: dict[str, list[float]] = {}
     passed_by_evaluator: dict[str, list[bool]] = {}
+    scores_by_metric: dict[str, list[float]] = {}
 
     for case_result in case_results:
         for evaluation in case_result.evaluations:
@@ -90,6 +91,11 @@ def _aggregate(case_results: list[CaseResult]) -> dict[str, float]:
             passed_by_evaluator.setdefault(evaluation.evaluator, [])
             if evaluation.score is not None:
                 scores_by_evaluator[evaluation.evaluator].append(evaluation.score)
+                aggregate_name = evaluation.metadata.get("aggregate_name")
+                if isinstance(aggregate_name, str) and aggregate_name:
+                    scores_by_metric.setdefault(aggregate_name, []).append(
+                        float(evaluation.score)
+                    )
             passed_by_evaluator[evaluation.evaluator].append(evaluation.passed)
 
     metrics: dict[str, float] = {}
@@ -99,6 +105,9 @@ def _aggregate(case_results: list[CaseResult]) -> dict[str, float]:
     for name, flags in passed_by_evaluator.items():
         if flags:
             metrics[f"{name}_pass_rate"] = sum(flags) / len(flags)
+    for name, scores in scores_by_metric.items():
+        metrics[f"{name}_avg"] = sum(scores) / len(scores)
+        metrics[f"{name}_sum"] = sum(scores)
 
     total_cases = len(case_results)
     error_count = sum(1 for case_result in case_results if case_result.error is not None)

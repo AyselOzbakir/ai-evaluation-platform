@@ -32,6 +32,7 @@ import urllib.request
 from typing import Any, Callable
 
 from app.core.models import EvaluationCase, SystemAdapter, SystemOutput
+from app.systems.ata_rag.usage import normalize_usage
 
 NO_ANSWER_PREFIX = "I couldn't find enough verified information"
 DEFAULT_TIMEOUT_S = 30.0
@@ -89,10 +90,12 @@ class ATARagAdapter(SystemAdapter):
         base_url: str | None = None,
         timeout: float = DEFAULT_TIMEOUT_S,
         http_post: HttpPost | None = None,
+        pricing_path: str | None = None,
     ) -> None:
         self._base_url = base_url
         self.timeout = timeout
         self._post = http_post or _default_http_post
+        self.pricing_path = pricing_path or os.environ.get("ATA_MODEL_PRICING_PATH")
 
     @property
     def base_url(self) -> str:
@@ -119,10 +122,18 @@ class ATARagAdapter(SystemAdapter):
         started = time.perf_counter()
         raw = self._post(self.base_url + CHAT_PATH, payload, self.timeout)
         client_latency_ms = int((time.perf_counter() - started) * 1000)
-        return self.normalize_response(raw, client_latency_ms=client_latency_ms)
+        return self.normalize_response(
+            raw,
+            client_latency_ms=client_latency_ms,
+            pricing_path=self.pricing_path,
+        )
 
     @staticmethod
-    def normalize_response(raw: dict[str, Any], client_latency_ms: int | None = None) -> SystemOutput:
+    def normalize_response(
+        raw: dict[str, Any],
+        client_latency_ms: int | None = None,
+        pricing_path: str | None = None,
+    ) -> SystemOutput:
         """Turn a raw ATA ``ChatResponse`` dict into the shared ``SystemOutput``."""
         answer = raw.get("answer")
         if not isinstance(answer, str):
@@ -162,5 +173,6 @@ class ATARagAdapter(SystemAdapter):
                 "confidence": raw.get("confidence"),
                 "query_id": raw.get("query_id"),
                 "source_details": source_details,
+                **normalize_usage(raw, pricing_path),
             },
         )

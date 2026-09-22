@@ -158,6 +158,12 @@ metrics:
 - `minimum` and `maximum` define candidate value bounds when applicable.
 - `max_regression` limits the allowed movement in the unfavorable direction from baseline.
 
+ATA token and cost measurements are supported when the external ATA response exposes usage
+fields. The adapter normalizes input/output/total tokens, model name, and backend-provided cost;
+missing values remain unavailable rather than being estimated. Optional local pricing can be
+configured with `ATA_MODEL_PRICING_PATH` using explicit USD-per-million-token rates. Unknown
+models and missing usage never receive fabricated values.
+
 ## Dashboard
 
 Start the application and open [http://127.0.0.1:8000/dashboard](http://127.0.0.1:8000/dashboard).

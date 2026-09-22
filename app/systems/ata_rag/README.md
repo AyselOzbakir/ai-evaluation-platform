@@ -36,7 +36,9 @@ evaluation platform. It only _calls_ ATA (`POST /api/chat`); no RAG logic is cop
 - `no_answer` (bool, true when ATA returned its "couldn't find enough verified information" message)
 
 `SystemOutput.metadata`: `latency_ms` (measured by ATA), `client_latency_ms` (measured by the
-adapter), `confidence`, `query_id`, `source_details` (title/url/section/excerpt/source_type per source).
+adapter), `confidence`, `query_id`, `source_details` (title/url/section/excerpt/source_type per source),
+and optional normalized usage fields: `input_tokens`, `output_tokens`, `total_tokens`, `cost_usd`,
+and `model_name`.
 
 Configuration: `ATA_RAG_BASE_URL` (or `ATARagAdapter(base_url=...)`), timeout defaults to 30 s.
 Failures (unreachable, timeout, HTTP error, invalid JSON, unexpected shape) raise `ATARagError`
@@ -93,6 +95,13 @@ The ATA-local `default_judge_evaluators(judge_client)` factory loads the three g
 from `configs/ata_rag/rubrics.yaml`: `answer_correctness`, `groundedness`, and
 `citation_source_correctness`. Tests inject a fake judge client, so no provider or API key is
 required for the integration tests.
+
+Usage measurement evaluators are opt-in: `input_tokens`, `output_tokens`, `total_tokens`, and
+`cost_usd`. Add the desired names to a run config's `evaluators` list. When usage is unavailable,
+these evaluators return a neutral passed result with no numeric score, so no values are fabricated.
+The generic runner then aggregates available values as `<metric>_avg_score` fields. Backend-provided
+`cost_usd` takes precedence. Local cost calculation is available only when `ATA_MODEL_PRICING_PATH`
+points to an explicit pricing YAML file; unknown models remain unavailable.
 
 ## Known limitations
 

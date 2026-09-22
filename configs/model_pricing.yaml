@@ -1,0 +1,3 @@
+# Optional local pricing. Values are USD per 1,000,000 tokens.
+# Add only prices approved for your deployment; no commercial defaults are assumed.
+models: {}
