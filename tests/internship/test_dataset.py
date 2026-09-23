@@ -18,11 +18,11 @@ def test_dataset_has_exact_balanced_synthetic_cases():
         label = case.expected_output["recommendation"]
         counts[label] = counts.get(label, 0) + 1
 
-    assert len(cases) == 25
+    assert len(cases) == 50
     assert [case.id for case in cases] == [
-        f"internship-application-{index:03d}" for index in range(1, 26)
+        f"internship-application-{index:03d}" for index in range(1, 51)
     ]
-    assert len({case.id for case in cases}) == 25
+    assert len({case.id for case in cases}) == 50
     assert {case.system for case in cases} == {"internship-coordinator"}
     assert {case.metadata["dataset_version"] for case in cases} == {
         DATASET_VERSION

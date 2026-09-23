@@ -1,0 +1,68 @@
+# Internship Coordinator LLM-judge rubrics (Person 3).
+# Config only: the generic judge (Person 4) reads these; no LLM client lives here.
+# Field names follow the guide's rubric contract (name, criteria, fields, threshold,
+# prompt_version), same shape as configs/ata_rag/rubrics.yaml.
+#
+# Known data limitation: the external coordinator's adapter (app/systems/internship/
+# adapter.py) only exposes `recommendation`, `notes`, `external_decision` and
+# `case_id` to this evaluation layer - it does not return the extracted document
+# fields (student info, dates, eligibility criteria) it used internally. So these
+# rubrics judge the *notes* the coordinator produced, not the raw application
+# documents. hallucination_detection in particular is a best-effort check for
+# internal inconsistency (notes contradicting the declared recommendation, or
+# notes asserting specifics with no basis in the recommendation/evidence markers
+# available) rather than a full grounding check against source documents.
+#
+# `fields` selects what the judge sees:
+#   input    -> keys of case.input
+#   expected -> keys of case.expected_output
+#   actual   -> keys of SystemOutput.output
+#   context  -> keys of SystemOutput.metadata
+
+rubrics:
+  - name: decision_correctness
+    prompt_version: internship-decision-correctness-v1
+    pass_threshold: 0.7
+    criteria: |
+      Decide whether the actual recommendation is the correct one given the
+      coordinator's own notes, using the expected recommendation as the reference
+      answer. Score 1.0 if actual matches expected and the notes are internally
+      consistent with that recommendation. Score 0.0 if actual contradicts expected,
+      or if the notes argue for a different recommendation than the one returned.
+    fields:
+      expected: [recommendation, evidence_markers]
+      actual: [recommendation, notes]
+
+  - name: explanation_quality
+    prompt_version: internship-explanation-quality-v1
+    pass_threshold: 0.6
+    criteria: |
+      Decide whether the notes give a clear, specific explanation for the
+      recommendation - not a generic template. A good explanation names the
+      concrete issue(s) that drove the decision (e.g. which requirement was met
+      or missing) rather than restating the recommendation label. Score 1.0 for a
+      specific, well-structured explanation; lower for vague or boilerplate notes;
+      0.0 if notes do not explain the recommendation at all.
+    fields:
+      expected: [recommendation]
+      actual: [recommendation, notes]
+
+  - name: hallucination_detection
+    prompt_version: internship-hallucination-detection-v1
+    pass_threshold: 0.7
+    criteria: |
+      Decide whether the notes assert anything that is not supportable given what
+      is actually available to this judge: the recommendation itself and the
+      expected evidence markers. Flag as a hallucination any specific claim in the
+      notes (a document type, a date, a policy citation, a named requirement) that
+      is not one of the expected evidence markers and is not simply a restatement
+      of the recommendation - since this judge cannot verify it against the source
+      application documents, such unverifiable specifics should be treated as
+      suspect. Also flag any internal contradiction (notes describing evidence for
+      one recommendation while a different recommendation is returned). Score 1.0
+      if the notes stay within what can be verified from evidence_markers plus the
+      recommendation itself, lower for each unverifiable or contradictory claim,
+      0.0 if the notes are dominated by unverifiable specifics.
+    fields:
+      expected: [recommendation, evidence_markers]
+      actual: [recommendation, notes]

@@ -8,7 +8,10 @@
     },
     "expected_output": {
       "recommendation": "APPROVE",
-      "evidence_markers": ["[OK]", "[PASS]"]
+      "evidence_markers": [
+        "[OK]",
+        "[PASS]"
+      ]
     },
     "metadata": {
       "dataset_version": "internship-coordinator-v1",
@@ -24,7 +27,9 @@
       "pdf_path": "synthetic/valid/application-002.pdf",
       "student_email": "synthetic-002@example.test"
     },
-    "expected_output": { "recommendation": "APPROVE" },
+    "expected_output": {
+      "recommendation": "APPROVE"
+    },
     "metadata": {
       "dataset_version": "internship-coordinator-v1",
       "synthetic": true,
@@ -39,7 +44,9 @@
       "pdf_path": "synthetic/valid/application-003.pdf",
       "student_email": "synthetic-003@example.test"
     },
-    "expected_output": { "recommendation": "APPROVE" },
+    "expected_output": {
+      "recommendation": "APPROVE"
+    },
     "metadata": {
       "dataset_version": "internship-coordinator-v1",
       "synthetic": true,
@@ -54,7 +61,9 @@
       "pdf_path": "synthetic/valid/application-004.pdf",
       "student_email": "synthetic-004@example.test"
     },
-    "expected_output": { "recommendation": "APPROVE" },
+    "expected_output": {
+      "recommendation": "APPROVE"
+    },
     "metadata": {
       "dataset_version": "internship-coordinator-v1",
       "synthetic": true,
@@ -69,7 +78,9 @@
       "pdf_path": "synthetic/valid/application-005.pdf",
       "student_email": "synthetic-005@example.test"
     },
-    "expected_output": { "recommendation": "APPROVE" },
+    "expected_output": {
+      "recommendation": "APPROVE"
+    },
     "metadata": {
       "dataset_version": "internship-coordinator-v1",
       "synthetic": true,
@@ -84,7 +95,9 @@
       "pdf_path": "synthetic/valid/application-006.pdf",
       "student_email": "synthetic-006@example.test"
     },
-    "expected_output": { "recommendation": "APPROVE" },
+    "expected_output": {
+      "recommendation": "APPROVE"
+    },
     "metadata": {
       "dataset_version": "internship-coordinator-v1",
       "synthetic": true,
@@ -99,7 +112,9 @@
       "pdf_path": "synthetic/valid/application-007.pdf",
       "student_email": "synthetic-007@example.test"
     },
-    "expected_output": { "recommendation": "APPROVE" },
+    "expected_output": {
+      "recommendation": "APPROVE"
+    },
     "metadata": {
       "dataset_version": "internship-coordinator-v1",
       "synthetic": true,
@@ -114,7 +129,9 @@
       "pdf_path": "synthetic/valid/application-008.pdf",
       "student_email": "synthetic-008@example.test"
     },
-    "expected_output": { "recommendation": "APPROVE" },
+    "expected_output": {
+      "recommendation": "APPROVE"
+    },
     "metadata": {
       "dataset_version": "internship-coordinator-v1",
       "synthetic": true,
@@ -129,7 +146,9 @@
       "pdf_path": "synthetic/valid/application-009.pdf",
       "student_email": "synthetic-009@example.test"
     },
-    "expected_output": { "recommendation": "APPROVE" },
+    "expected_output": {
+      "recommendation": "APPROVE"
+    },
     "metadata": {
       "dataset_version": "internship-coordinator-v1",
       "synthetic": true,
@@ -146,7 +165,9 @@
     },
     "expected_output": {
       "recommendation": "REQUEST CLARIFICATION",
-      "evidence_markers": ["[MISSING]"]
+      "evidence_markers": [
+        "[MISSING]"
+      ]
     },
     "metadata": {
       "dataset_version": "internship-coordinator-v1",
@@ -162,7 +183,9 @@
       "pdf_path": "synthetic/incomplete/application-011.pdf",
       "student_email": "synthetic-011@example.test"
     },
-    "expected_output": { "recommendation": "REQUEST CLARIFICATION" },
+    "expected_output": {
+      "recommendation": "REQUEST CLARIFICATION"
+    },
     "metadata": {
       "dataset_version": "internship-coordinator-v1",
       "synthetic": true,
@@ -177,7 +200,9 @@
       "pdf_path": "synthetic/incomplete/application-012.pdf",
       "student_email": "synthetic-012@example.test"
     },
-    "expected_output": { "recommendation": "REQUEST CLARIFICATION" },
+    "expected_output": {
+      "recommendation": "REQUEST CLARIFICATION"
+    },
     "metadata": {
       "dataset_version": "internship-coordinator-v1",
       "synthetic": true,
@@ -192,7 +217,9 @@
       "pdf_path": "synthetic/incomplete/application-013.pdf",
       "student_email": "synthetic-013@example.test"
     },
-    "expected_output": { "recommendation": "REQUEST CLARIFICATION" },
+    "expected_output": {
+      "recommendation": "REQUEST CLARIFICATION"
+    },
     "metadata": {
       "dataset_version": "internship-coordinator-v1",
       "synthetic": true,
@@ -207,7 +234,9 @@
       "pdf_path": "synthetic/needs_verification/application-014.pdf",
       "student_email": "synthetic-014@example.test"
     },
-    "expected_output": { "recommendation": "REQUEST CLARIFICATION" },
+    "expected_output": {
+      "recommendation": "REQUEST CLARIFICATION"
+    },
     "metadata": {
       "dataset_version": "internship-coordinator-v1",
       "synthetic": true,
@@ -222,7 +251,9 @@
       "pdf_path": "synthetic/needs_verification/application-015.pdf",
       "student_email": "synthetic-015@example.test"
     },
-    "expected_output": { "recommendation": "REQUEST CLARIFICATION" },
+    "expected_output": {
+      "recommendation": "REQUEST CLARIFICATION"
+    },
     "metadata": {
       "dataset_version": "internship-coordinator-v1",
       "synthetic": true,
@@ -237,7 +268,9 @@
       "pdf_path": "synthetic/needs_verification/application-016.pdf",
       "student_email": "synthetic-016@example.test"
     },
-    "expected_output": { "recommendation": "REQUEST CLARIFICATION" },
+    "expected_output": {
+      "recommendation": "REQUEST CLARIFICATION"
+    },
     "metadata": {
       "dataset_version": "internship-coordinator-v1",
       "synthetic": true,
@@ -252,7 +285,9 @@
       "pdf_path": "synthetic/needs_verification/application-017.pdf",
       "student_email": "synthetic-017@example.test"
     },
-    "expected_output": { "recommendation": "REQUEST CLARIFICATION" },
+    "expected_output": {
+      "recommendation": "REQUEST CLARIFICATION"
+    },
     "metadata": {
       "dataset_version": "internship-coordinator-v1",
       "synthetic": true,
@@ -269,7 +304,9 @@
     },
     "expected_output": {
       "recommendation": "REJECT",
-      "evidence_markers": ["[FAIL]"]
+      "evidence_markers": [
+        "[FAIL]"
+      ]
     },
     "metadata": {
       "dataset_version": "internship-coordinator-v1",
@@ -285,7 +322,9 @@
       "pdf_path": "synthetic/rule_violation/application-019.pdf",
       "student_email": "synthetic-019@example.test"
     },
-    "expected_output": { "recommendation": "REJECT" },
+    "expected_output": {
+      "recommendation": "REJECT"
+    },
     "metadata": {
       "dataset_version": "internship-coordinator-v1",
       "synthetic": true,
@@ -300,7 +339,9 @@
       "pdf_path": "synthetic/rule_violation/application-020.pdf",
       "student_email": "synthetic-020@example.test"
     },
-    "expected_output": { "recommendation": "REJECT" },
+    "expected_output": {
+      "recommendation": "REJECT"
+    },
     "metadata": {
       "dataset_version": "internship-coordinator-v1",
       "synthetic": true,
@@ -315,7 +356,9 @@
       "pdf_path": "synthetic/rule_violation/application-021.pdf",
       "student_email": "synthetic-021@example.test"
     },
-    "expected_output": { "recommendation": "REJECT" },
+    "expected_output": {
+      "recommendation": "REJECT"
+    },
     "metadata": {
       "dataset_version": "internship-coordinator-v1",
       "synthetic": true,
@@ -330,7 +373,9 @@
       "pdf_path": "synthetic/rule_violation/application-022.pdf",
       "student_email": "synthetic-022@example.test"
     },
-    "expected_output": { "recommendation": "REJECT" },
+    "expected_output": {
+      "recommendation": "REJECT"
+    },
     "metadata": {
       "dataset_version": "internship-coordinator-v1",
       "synthetic": true,
@@ -345,7 +390,9 @@
       "pdf_path": "synthetic/rule_violation/application-023.pdf",
       "student_email": "synthetic-023@example.test"
     },
-    "expected_output": { "recommendation": "REJECT" },
+    "expected_output": {
+      "recommendation": "REJECT"
+    },
     "metadata": {
       "dataset_version": "internship-coordinator-v1",
       "synthetic": true,
@@ -360,7 +407,9 @@
       "pdf_path": "synthetic/rule_violation/application-024.pdf",
       "student_email": "synthetic-024@example.test"
     },
-    "expected_output": { "recommendation": "REJECT" },
+    "expected_output": {
+      "recommendation": "REJECT"
+    },
     "metadata": {
       "dataset_version": "internship-coordinator-v1",
       "synthetic": true,
@@ -375,7 +424,434 @@
       "pdf_path": "synthetic/rule_violation/application-025.pdf",
       "student_email": "synthetic-025@example.test"
     },
-    "expected_output": { "recommendation": "REJECT" },
+    "expected_output": {
+      "recommendation": "REJECT"
+    },
+    "metadata": {
+      "dataset_version": "internship-coordinator-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "rule_violation"
+    }
+  },
+  {
+    "id": "internship-application-026",
+    "system": "internship-coordinator",
+    "input": {
+      "pdf_path": "synthetic/valid/application-026.pdf",
+      "student_email": "synthetic-026@example.test"
+    },
+    "expected_output": {
+      "recommendation": "APPROVE"
+    },
+    "metadata": {
+      "dataset_version": "internship-coordinator-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "valid"
+    }
+  },
+  {
+    "id": "internship-application-027",
+    "system": "internship-coordinator",
+    "input": {
+      "pdf_path": "synthetic/valid/application-027.pdf",
+      "student_email": "synthetic-027@example.test"
+    },
+    "expected_output": {
+      "recommendation": "APPROVE"
+    },
+    "metadata": {
+      "dataset_version": "internship-coordinator-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "valid"
+    }
+  },
+  {
+    "id": "internship-application-028",
+    "system": "internship-coordinator",
+    "input": {
+      "pdf_path": "synthetic/valid/application-028.pdf",
+      "student_email": "synthetic-028@example.test"
+    },
+    "expected_output": {
+      "recommendation": "APPROVE"
+    },
+    "metadata": {
+      "dataset_version": "internship-coordinator-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "valid"
+    }
+  },
+  {
+    "id": "internship-application-029",
+    "system": "internship-coordinator",
+    "input": {
+      "pdf_path": "synthetic/valid/application-029.pdf",
+      "student_email": "synthetic-029@example.test"
+    },
+    "expected_output": {
+      "recommendation": "APPROVE"
+    },
+    "metadata": {
+      "dataset_version": "internship-coordinator-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "valid"
+    }
+  },
+  {
+    "id": "internship-application-030",
+    "system": "internship-coordinator",
+    "input": {
+      "pdf_path": "synthetic/valid/application-030.pdf",
+      "student_email": "synthetic-030@example.test"
+    },
+    "expected_output": {
+      "recommendation": "APPROVE"
+    },
+    "metadata": {
+      "dataset_version": "internship-coordinator-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "valid"
+    }
+  },
+  {
+    "id": "internship-application-031",
+    "system": "internship-coordinator",
+    "input": {
+      "pdf_path": "synthetic/valid/application-031.pdf",
+      "student_email": "synthetic-031@example.test"
+    },
+    "expected_output": {
+      "recommendation": "APPROVE"
+    },
+    "metadata": {
+      "dataset_version": "internship-coordinator-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "valid"
+    }
+  },
+  {
+    "id": "internship-application-032",
+    "system": "internship-coordinator",
+    "input": {
+      "pdf_path": "synthetic/valid/application-032.pdf",
+      "student_email": "synthetic-032@example.test"
+    },
+    "expected_output": {
+      "recommendation": "APPROVE"
+    },
+    "metadata": {
+      "dataset_version": "internship-coordinator-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "valid"
+    }
+  },
+  {
+    "id": "internship-application-033",
+    "system": "internship-coordinator",
+    "input": {
+      "pdf_path": "synthetic/valid/application-033.pdf",
+      "student_email": "synthetic-033@example.test"
+    },
+    "expected_output": {
+      "recommendation": "APPROVE"
+    },
+    "metadata": {
+      "dataset_version": "internship-coordinator-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "valid"
+    }
+  },
+  {
+    "id": "internship-application-034",
+    "system": "internship-coordinator",
+    "input": {
+      "pdf_path": "synthetic/valid/application-034.pdf",
+      "student_email": "synthetic-034@example.test"
+    },
+    "expected_output": {
+      "recommendation": "APPROVE"
+    },
+    "metadata": {
+      "dataset_version": "internship-coordinator-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "valid"
+    }
+  },
+  {
+    "id": "internship-application-035",
+    "system": "internship-coordinator",
+    "input": {
+      "pdf_path": "synthetic/incomplete/application-035.pdf",
+      "student_email": "synthetic-035@example.test"
+    },
+    "expected_output": {
+      "recommendation": "REQUEST CLARIFICATION"
+    },
+    "metadata": {
+      "dataset_version": "internship-coordinator-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "incomplete"
+    }
+  },
+  {
+    "id": "internship-application-036",
+    "system": "internship-coordinator",
+    "input": {
+      "pdf_path": "synthetic/incomplete/application-036.pdf",
+      "student_email": "synthetic-036@example.test"
+    },
+    "expected_output": {
+      "recommendation": "REQUEST CLARIFICATION"
+    },
+    "metadata": {
+      "dataset_version": "internship-coordinator-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "incomplete"
+    }
+  },
+  {
+    "id": "internship-application-037",
+    "system": "internship-coordinator",
+    "input": {
+      "pdf_path": "synthetic/incomplete/application-037.pdf",
+      "student_email": "synthetic-037@example.test"
+    },
+    "expected_output": {
+      "recommendation": "REQUEST CLARIFICATION"
+    },
+    "metadata": {
+      "dataset_version": "internship-coordinator-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "incomplete"
+    }
+  },
+  {
+    "id": "internship-application-038",
+    "system": "internship-coordinator",
+    "input": {
+      "pdf_path": "synthetic/incomplete/application-038.pdf",
+      "student_email": "synthetic-038@example.test"
+    },
+    "expected_output": {
+      "recommendation": "REQUEST CLARIFICATION"
+    },
+    "metadata": {
+      "dataset_version": "internship-coordinator-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "incomplete"
+    }
+  },
+  {
+    "id": "internship-application-039",
+    "system": "internship-coordinator",
+    "input": {
+      "pdf_path": "synthetic/needs_verification/application-039.pdf",
+      "student_email": "synthetic-039@example.test"
+    },
+    "expected_output": {
+      "recommendation": "REQUEST CLARIFICATION"
+    },
+    "metadata": {
+      "dataset_version": "internship-coordinator-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "needs_verification"
+    }
+  },
+  {
+    "id": "internship-application-040",
+    "system": "internship-coordinator",
+    "input": {
+      "pdf_path": "synthetic/needs_verification/application-040.pdf",
+      "student_email": "synthetic-040@example.test"
+    },
+    "expected_output": {
+      "recommendation": "REQUEST CLARIFICATION"
+    },
+    "metadata": {
+      "dataset_version": "internship-coordinator-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "needs_verification"
+    }
+  },
+  {
+    "id": "internship-application-041",
+    "system": "internship-coordinator",
+    "input": {
+      "pdf_path": "synthetic/needs_verification/application-041.pdf",
+      "student_email": "synthetic-041@example.test"
+    },
+    "expected_output": {
+      "recommendation": "REQUEST CLARIFICATION"
+    },
+    "metadata": {
+      "dataset_version": "internship-coordinator-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "needs_verification"
+    }
+  },
+  {
+    "id": "internship-application-042",
+    "system": "internship-coordinator",
+    "input": {
+      "pdf_path": "synthetic/needs_verification/application-042.pdf",
+      "student_email": "synthetic-042@example.test"
+    },
+    "expected_output": {
+      "recommendation": "REQUEST CLARIFICATION"
+    },
+    "metadata": {
+      "dataset_version": "internship-coordinator-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "needs_verification"
+    }
+  },
+  {
+    "id": "internship-application-043",
+    "system": "internship-coordinator",
+    "input": {
+      "pdf_path": "synthetic/rule_violation/application-043.pdf",
+      "student_email": "synthetic-043@example.test"
+    },
+    "expected_output": {
+      "recommendation": "REJECT"
+    },
+    "metadata": {
+      "dataset_version": "internship-coordinator-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "rule_violation"
+    }
+  },
+  {
+    "id": "internship-application-044",
+    "system": "internship-coordinator",
+    "input": {
+      "pdf_path": "synthetic/rule_violation/application-044.pdf",
+      "student_email": "synthetic-044@example.test"
+    },
+    "expected_output": {
+      "recommendation": "REJECT"
+    },
+    "metadata": {
+      "dataset_version": "internship-coordinator-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "rule_violation"
+    }
+  },
+  {
+    "id": "internship-application-045",
+    "system": "internship-coordinator",
+    "input": {
+      "pdf_path": "synthetic/rule_violation/application-045.pdf",
+      "student_email": "synthetic-045@example.test"
+    },
+    "expected_output": {
+      "recommendation": "REJECT"
+    },
+    "metadata": {
+      "dataset_version": "internship-coordinator-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "rule_violation"
+    }
+  },
+  {
+    "id": "internship-application-046",
+    "system": "internship-coordinator",
+    "input": {
+      "pdf_path": "synthetic/rule_violation/application-046.pdf",
+      "student_email": "synthetic-046@example.test"
+    },
+    "expected_output": {
+      "recommendation": "REJECT"
+    },
+    "metadata": {
+      "dataset_version": "internship-coordinator-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "rule_violation"
+    }
+  },
+  {
+    "id": "internship-application-047",
+    "system": "internship-coordinator",
+    "input": {
+      "pdf_path": "synthetic/rule_violation/application-047.pdf",
+      "student_email": "synthetic-047@example.test"
+    },
+    "expected_output": {
+      "recommendation": "REJECT"
+    },
+    "metadata": {
+      "dataset_version": "internship-coordinator-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "rule_violation"
+    }
+  },
+  {
+    "id": "internship-application-048",
+    "system": "internship-coordinator",
+    "input": {
+      "pdf_path": "synthetic/rule_violation/application-048.pdf",
+      "student_email": "synthetic-048@example.test"
+    },
+    "expected_output": {
+      "recommendation": "REJECT"
+    },
+    "metadata": {
+      "dataset_version": "internship-coordinator-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "rule_violation"
+    }
+  },
+  {
+    "id": "internship-application-049",
+    "system": "internship-coordinator",
+    "input": {
+      "pdf_path": "synthetic/rule_violation/application-049.pdf",
+      "student_email": "synthetic-049@example.test"
+    },
+    "expected_output": {
+      "recommendation": "REJECT"
+    },
+    "metadata": {
+      "dataset_version": "internship-coordinator-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "rule_violation"
+    }
+  },
+  {
+    "id": "internship-application-050",
+    "system": "internship-coordinator",
+    "input": {
+      "pdf_path": "synthetic/rule_violation/application-050.pdf",
+      "student_email": "synthetic-050@example.test"
+    },
+    "expected_output": {
+      "recommendation": "REJECT"
+    },
     "metadata": {
       "dataset_version": "internship-coordinator-v1",
       "synthetic": true,
