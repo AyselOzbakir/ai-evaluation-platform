@@ -1,0 +1,295 @@
+[
+  {
+    "id": "pdf-signer-001",
+    "system": "pdf-signer",
+    "input": {
+      "operation": "detect",
+      "pdf_path": "synthetic/detect/internship-agreement-001.pdf",
+      "page_number": 1
+    },
+    "expected_output": {
+      "should_detect": true,
+      "min_areas": 1,
+      "expected_area": { "x": 420.0, "y": 90.0, "tolerance": 15.0 }
+    },
+    "metadata": {
+      "dataset_version": "pdf-signer-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "detect_signature_present"
+    }
+  },
+  {
+    "id": "pdf-signer-002",
+    "system": "pdf-signer",
+    "input": {
+      "operation": "detect",
+      "pdf_path": "synthetic/detect/internship-agreement-002.pdf",
+      "page_number": 1
+    },
+    "expected_output": {
+      "should_detect": true,
+      "min_areas": 1,
+      "expected_area": { "x": 300.0, "y": 120.0, "tolerance": 15.0 }
+    },
+    "metadata": {
+      "dataset_version": "pdf-signer-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "detect_signature_present"
+    }
+  },
+  {
+    "id": "pdf-signer-003",
+    "system": "pdf-signer",
+    "input": {
+      "operation": "detect",
+      "pdf_path": "synthetic/detect/report-approval-003.pdf",
+      "page_number": 2
+    },
+    "expected_output": {
+      "should_detect": true,
+      "min_areas": 1,
+      "expected_area": { "x": 250.0, "y": 700.0, "tolerance": 20.0 }
+    },
+    "metadata": {
+      "dataset_version": "pdf-signer-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "detect_signature_present_multi_page"
+    }
+  },
+  {
+    "id": "pdf-signer-004",
+    "system": "pdf-signer",
+    "input": {
+      "operation": "detect",
+      "pdf_path": "synthetic/detect/dual-signature-004.pdf",
+      "page_number": 1
+    },
+    "expected_output": {
+      "should_detect": true,
+      "min_areas": 2
+    },
+    "metadata": {
+      "dataset_version": "pdf-signer-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "detect_multiple_signature_areas"
+    }
+  },
+  {
+    "id": "pdf-signer-005",
+    "system": "pdf-signer",
+    "input": {
+      "operation": "detect",
+      "pdf_path": "synthetic/detect/blank-cover-005.pdf",
+      "page_number": 1
+    },
+    "expected_output": {
+      "should_detect": false,
+      "min_areas": 0
+    },
+    "metadata": {
+      "dataset_version": "pdf-signer-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "detect_no_signature_area"
+    }
+  },
+  {
+    "id": "pdf-signer-006",
+    "system": "pdf-signer",
+    "input": {
+      "operation": "detect",
+      "pdf_path": "synthetic/detect/appendix-only-006.pdf",
+      "page_number": 3
+    },
+    "expected_output": {
+      "should_detect": false,
+      "min_areas": 0
+    },
+    "metadata": {
+      "dataset_version": "pdf-signer-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "detect_no_signature_area"
+    }
+  },
+  {
+    "id": "pdf-signer-007",
+    "system": "pdf-signer",
+    "input": {
+      "operation": "detect",
+      "pdf_path": "synthetic/detect/internship-agreement-007.pdf",
+      "page_number": 1
+    },
+    "expected_output": {
+      "should_detect": true,
+      "min_areas": 1,
+      "expected_area": { "x": 40.0, "y": 780.0, "tolerance": 10.0 }
+    },
+    "metadata": {
+      "dataset_version": "pdf-signer-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "detect_signature_near_edge"
+    }
+  },
+  {
+    "id": "pdf-signer-008",
+    "system": "pdf-signer",
+    "input": {
+      "operation": "detect",
+      "pdf_path": "synthetic/detect/report-approval-008.pdf",
+      "page_number": 1
+    },
+    "expected_output": {
+      "should_detect": true,
+      "min_areas": 1,
+      "expected_area": { "x": 360.0, "y": 150.0, "tolerance": 8.0 }
+    },
+    "metadata": {
+      "dataset_version": "pdf-signer-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "detect_signature_tight_tolerance"
+    }
+  },
+  {
+    "id": "pdf-signer-009",
+    "system": "pdf-signer",
+    "input": {
+      "operation": "detect",
+      "pdf_path": "synthetic/detect/cover-page-009.pdf",
+      "page_number": 1
+    },
+    "expected_output": {
+      "should_detect": false,
+      "min_areas": 0
+    },
+    "metadata": {
+      "dataset_version": "pdf-signer-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "detect_no_signature_area"
+    }
+  },
+  {
+    "id": "pdf-signer-010",
+    "system": "pdf-signer",
+    "input": {
+      "operation": "place",
+      "pdf_path": "synthetic/place/internship-agreement-010.pdf",
+      "page_number": 1,
+      "x": 420.0,
+      "y": 90.0,
+      "signature_image_path": "synthetic/signatures/signature-001.png"
+    },
+    "expected_output": {},
+    "metadata": {
+      "dataset_version": "pdf-signer-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "place_standard"
+    }
+  },
+  {
+    "id": "pdf-signer-011",
+    "system": "pdf-signer",
+    "input": {
+      "operation": "place",
+      "pdf_path": "synthetic/place/internship-agreement-011.pdf",
+      "page_number": 1,
+      "x": 40.0,
+      "y": 780.0,
+      "signature_image_path": "synthetic/signatures/signature-002.png"
+    },
+    "expected_output": {},
+    "metadata": {
+      "dataset_version": "pdf-signer-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "place_near_edge"
+    }
+  },
+  {
+    "id": "pdf-signer-012",
+    "system": "pdf-signer",
+    "input": {
+      "operation": "place",
+      "pdf_path": "synthetic/place/report-approval-012.pdf",
+      "page_number": 1,
+      "x": 250.0,
+      "y": 700.0,
+      "signature_image_path": "synthetic/signatures/signature-003.png",
+      "width": 200,
+      "height": 80
+    },
+    "expected_output": {},
+    "metadata": {
+      "dataset_version": "pdf-signer-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "place_custom_size"
+    }
+  },
+  {
+    "id": "pdf-signer-013",
+    "system": "pdf-signer",
+    "input": {
+      "operation": "place",
+      "pdf_path": "synthetic/place/report-approval-013.pdf",
+      "page_number": 2,
+      "x": 300.0,
+      "y": 120.0,
+      "signature_image_path": "synthetic/signatures/signature-001.png"
+    },
+    "expected_output": {},
+    "metadata": {
+      "dataset_version": "pdf-signer-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "place_multi_page"
+    }
+  },
+  {
+    "id": "pdf-signer-014",
+    "system": "pdf-signer",
+    "input": {
+      "operation": "place",
+      "pdf_path": "synthetic/place/dual-signature-014.pdf",
+      "page_number": 1,
+      "x": 100.0,
+      "y": 400.0,
+      "signature_image_path": "synthetic/signatures/signature-002.png",
+      "output_path": "synthetic/place/output/dual-signature-014-signed.pdf"
+    },
+    "expected_output": {},
+    "metadata": {
+      "dataset_version": "pdf-signer-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "place_explicit_output_path"
+    }
+  },
+  {
+    "id": "pdf-signer-015",
+    "system": "pdf-signer",
+    "input": {
+      "operation": "place",
+      "pdf_path": "synthetic/place/internship-agreement-015.pdf",
+      "page_number": 1,
+      "x": 360.0,
+      "y": 150.0,
+      "signature_image_path": "synthetic/signatures/signature-003.png"
+    },
+    "expected_output": {},
+    "metadata": {
+      "dataset_version": "pdf-signer-v1",
+      "synthetic": true,
+      "split": "golden",
+      "category": "place_default_size"
+    }
+  }
+]

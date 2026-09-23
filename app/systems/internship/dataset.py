@@ -12,11 +12,11 @@ from app.core.models import EvaluationCase
 
 SYSTEM_NAME = "internship-coordinator"
 DATASET_VERSION = "internship-coordinator-v1"
-EXPECTED_CASE_COUNT = 25
+EXPECTED_CASE_COUNT = 50
 EXPECTED_RECOMMENDATION_COUNTS = {
-    "APPROVE": 9,
-    "REQUEST CLARIFICATION": 8,
-    "REJECT": 8,
+    "APPROVE": 18,
+    "REQUEST CLARIFICATION": 16,
+    "REJECT": 16,
 }
 DEFAULT_DATASET_PATH = (
     Path(__file__).resolve().parents[3]

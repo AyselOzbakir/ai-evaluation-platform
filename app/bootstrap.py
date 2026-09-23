@@ -6,6 +6,8 @@ from app.systems.ata_rag.usage_evaluators import usage_evaluators
 from app.systems.internship import (
     CoordinatorDecisionEvaluator,
     CoordinatorEvidenceEvaluator,
+    CoordinatorLatencyThreshold,
+    CoordinatorNotesQualityEvaluator,
     CoordinatorSchemaEvaluator,
     InternshipCoordinatorAdapter,
 )
@@ -40,6 +42,8 @@ def register_default_integrations(registry: Registry = default_registry) -> Regi
         *usage_evaluators(),
         CoordinatorDecisionEvaluator(),
         CoordinatorEvidenceEvaluator(),
+        CoordinatorLatencyThreshold(),
+        CoordinatorNotesQualityEvaluator(),
         CoordinatorSchemaEvaluator(),
         ReportDecisionEvaluator(),
         ReportFindingEvaluator(),

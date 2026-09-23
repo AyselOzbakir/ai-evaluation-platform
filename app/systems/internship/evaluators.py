@@ -62,6 +62,72 @@ class CoordinatorSchemaEvaluator(Evaluator):
         )
 
 
+class CoordinatorLatencyThreshold(Evaluator):
+    """Passes when the coordinator's reported latency is within ``max_ms``."""
+
+    name = "coordinator_latency_threshold"
+
+    def __init__(self, max_ms: int = 10_000) -> None:
+        self.max_ms = max_ms
+
+    def evaluate(
+        self,
+        case: EvaluationCase,
+        output: SystemOutput,
+    ) -> EvaluationResult:
+        latency = output.metadata.get("latency_ms")
+        if latency is None:
+            return EvaluationResult(
+                evaluator=self.name,
+                score=0.0,
+                passed=False,
+                reason="No latency_ms in output metadata.",
+            )
+        passed = latency <= self.max_ms
+        return EvaluationResult(
+            evaluator=self.name,
+            score=1.0 if passed else 0.0,
+            passed=passed,
+            reason=f"Latency {latency} ms vs limit {self.max_ms} ms.",
+            metadata={"latency_ms": latency, "max_ms": self.max_ms},
+        )
+
+
+class CoordinatorNotesQualityEvaluator(Evaluator):
+    """Deterministic floor for explanation quality: non-trivial, non-empty notes.
+
+    This is a cheap proxy only (length + whitespace check), not a substitute for
+    the LLM-judge ``explanation_quality`` rubric in configs/internship/rubrics.yaml,
+    which actually judges whether the explanation is well-supported.
+    """
+
+    name = "coordinator_notes_quality"
+
+    def __init__(self, min_length: int = 20) -> None:
+        self.min_length = min_length
+
+    def evaluate(
+        self,
+        case: EvaluationCase,
+        output: SystemOutput,
+    ) -> EvaluationResult:
+        notes = output.output.get("notes", "")
+        length = len(notes.strip()) if isinstance(notes, str) else 0
+        passed = length >= self.min_length
+        return EvaluationResult(
+            evaluator=self.name,
+            score=1.0 if passed else 0.0,
+            passed=passed,
+            reason=(
+                f"Notes are {length} characters long; minimum is {self.min_length}."
+                if passed
+                else f"Notes are too short ({length} chars) to explain a decision; "
+                f"minimum is {self.min_length}."
+            ),
+            metadata={"notes_length": length, "min_length": self.min_length},
+        )
+
+
 class CoordinatorEvidenceEvaluator(Evaluator):
     name = "coordinator_evidence"
 

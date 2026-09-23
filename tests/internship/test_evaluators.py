@@ -2,6 +2,8 @@ from app.core.models import EvaluationCase, SystemOutput
 from app.systems.internship.evaluators import (
     CoordinatorDecisionEvaluator,
     CoordinatorEvidenceEvaluator,
+    CoordinatorLatencyThreshold,
+    CoordinatorNotesQualityEvaluator,
     CoordinatorSchemaEvaluator,
 )
 
@@ -81,3 +83,43 @@ def test_evidence_evaluator_without_markers_is_neutral():
     assert result.passed is True
     assert result.score is None
     assert result.metadata["skipped"] is True
+
+
+def test_latency_threshold_passes_within_limit():
+    within_limit = SystemOutput(output={}, metadata={"latency_ms": 4000})
+    result = CoordinatorLatencyThreshold(max_ms=5000).evaluate(case(), within_limit)
+
+    assert result.passed is True
+    assert result.score == 1.0
+
+
+def test_latency_threshold_fails_over_limit():
+    over_limit = SystemOutput(output={}, metadata={"latency_ms": 9000})
+    result = CoordinatorLatencyThreshold(max_ms=5000).evaluate(case(), over_limit)
+
+    assert result.passed is False
+    assert result.score == 0.0
+
+
+def test_latency_threshold_fails_without_latency_metadata():
+    result = CoordinatorLatencyThreshold().evaluate(case(), SystemOutput(output={}))
+
+    assert result.passed is False
+    assert "No latency_ms" in result.reason
+
+
+def test_notes_quality_passes_for_substantive_notes():
+    result = CoordinatorNotesQualityEvaluator(min_length=20).evaluate(case(), output())
+
+    assert result.passed is True
+    assert result.score == 1.0
+
+
+def test_notes_quality_fails_for_short_notes():
+    result = CoordinatorNotesQualityEvaluator(min_length=20).evaluate(
+        case(), output(notes="OK")
+    )
+
+    assert result.passed is False
+    assert result.score == 0.0
+    assert result.metadata["notes_length"] == 2
